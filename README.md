@@ -45,32 +45,37 @@ Matthew:
   - Users should be able to find the Pokemon type with the strongest/weakest average power of their moves.
 
 ### Timeline:
-**Oct 25th**:
+**Oct 25th**
 - Ensure everybody has push/pull/branch access to the project repo
 - Ensure that everyone contributes at least one commit
 - Previous milestones must be added to the project repo
 - Iron out tasks and work distribution, and everyone must agree with the plan
 - Book a meeting slot with the TA to discuss milestone 3
 - Explanations/mockups for SQL queries are complete
+
 **Nov 1st**
 - Set up next/react skeletons and run the default example app
 - Set up AWS postgreSQL instance and connect with backend
 - Assigned SQL queries are drafted up and mostly syntactically/semantically correct
 - Explanations and documentation for SQL queries are complete
+
 **Nov 8th**
 - SQL reset/loading script are finalized and complete
 - Basic page navigation and layout for frontend is implemented
 - Basic page routing on local host is complete
 - Backend API endpoints are defined and are ready to be implemented
+
 **Nov 15th**
 - ~50% Backend API endpoints are implemented with notifications, data sanitation and error handling built in
 - Corresponding frontend API endpoints are usable, not pretty
+
 **Nov 22nd**
 - ~90-100% Backend API endpoints are implemented
 - Corresponding frontend API endpoints usable and pretty
 - Cover page, project description and security are implemented
 - Endpoints written by others are tested thoroughly
 - Project schema and changes noted in project description
+
 **DUE Nov 29th**
 - Project is perfectly usable as outlined in project description
 - Everyone should read over and have commented on the project cover page, description, schema - description and changes.
