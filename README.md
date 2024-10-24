@@ -1,7 +1,7 @@
 # project_template
 # Make sure to fill out the README with the information specified in the project description!
 
-2. Project Summary:					
+Project Summary:					
 Our project is a centralized hub of information that allows users to access and contribute 
 detailed information about the Pokémon video game series. Information about the game’s 
 Pokémon, trainers, gym leaders, moves, and more are to be tracked so users are able to 
