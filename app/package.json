@@ -1,0 +1,19 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "description": "backend",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "prettier --write ."
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "next": "15.0.2",
+    "pg": "^8.13.1",
+    "prettier": "^3.3.3",
+    "react": "19.0.0-rc-02c0e824-20241028",
+    "react-dom": "19.0.0-rc-02c0e824-20241028"
+  }
+}
