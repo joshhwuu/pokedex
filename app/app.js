@@ -6,7 +6,7 @@ const app = express();
 const port = 5000;
 
 app.get("/", async (req, res) => {
-  const query = "SELECT * FROM public.pokemon WHERE id = 73";
+  const query = "SELECT * FROM public.pokemon";
   try {
     const result = await db.query(query);
     res.send(result.rows);
