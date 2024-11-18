@@ -1,14 +1,19 @@
 import express from "express";
-import db from "./db.js"; 
+import db from "./db.js";
 
+import cors from "cors";
 const app = express();
 
-const port = 5000;
+app.use(cors());
+
+const port = 8008;
 
 app.get("/", async (req, res) => {
-  const query = "SELECT * FROM public.pokemon";
+  const query = "SELECT * FROM test";
+  console.log("query received");
   try {
     const result = await db.query(query);
+    console.log(result);
     res.send(result.rows);
   } catch (err) {
     console.error(err);
