@@ -1,0 +1,24 @@
+DB_USER = postgres
+DB_HOST = localhost
+DB_NAME = not_pokedex
+DB_PASS = password123
+DB_PORT = 5432
+
+/*
+DB_USER would be an user account on your computer that interacts with the local PostgresSQL database you have. 
+DB_HOST is the hostname / website name we will connect to our database using (since we're not deploying, just <localhost> as shown)
+DB_NAME is the name of the database on the local postgres server. I created mine with the name not_pokedex, feel free to copy if you want.
+DB_PASS is the password to your database. You will select a password for your local postgres database, use the same password and make sure that you only use this password in the .env file which we will NOT be commiting to github.
+DB_PORT is the port which is listening for any database requests. You can select which port the local postgres server runs on.
+
+STEPS:
+
+1. Create and name the file:
+.env
+
+2. Fill in the dummy values for the variables with the values for your local postgres server.
+
+3. Within the project directory, place the .env file here: 
+app/backend/.env
+
+*/
