@@ -23,6 +23,7 @@ app.post("/reload", async (req, res) => {
   }
 });
 
+// @ team members, please add your routes here in similar fashion
 app.use("/josh", josh_routes);
 
 app.listen(port, () => {
