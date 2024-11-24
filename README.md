@@ -32,7 +32,7 @@ Joshua:
 - (2.1.6) One relation to join on
   - Users should be able to see the gym leader’s name, where they’re located, and their pokemon roster
 - (2.1.8) Aggregation with having
-  - Users can use this information to learn which pokemon you can have in your party before they evolve
+  - Users can use this information to discover stats about move sets based on type
 - (2.1.10) Division
   - Users should be able to find if a given list of pokemon are used in a trainer’s roster. For example you want to find out if a trainer you will need to face will have some Pokemon that will counter yours.
 
