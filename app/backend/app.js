@@ -23,7 +23,7 @@ app.post("/reload", async (req, res) => {
   }
 });
 
-app.use(josh_routes);
+app.use("/josh", josh_routes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
