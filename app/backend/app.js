@@ -1,5 +1,7 @@
 import express from "express";
 import db from "./db.js";
+import path from "path";
+import fs from "fs";
 
 import cors from "cors";
 const app = express();
@@ -17,6 +19,18 @@ app.get("/", async (req, res) => {
     res.send(result.rows);
   } catch (err) {
     console.error(err);
+  }
+});
+
+app.post("/reload", async (req, res) => {
+  const pathToReloadSql = path.join("../../scripts/sql/insert_tables.sql");
+  const query = fs.readFileSync(pathToReloadSql, "utf-8");
+  try {
+    await db.query(query);
+    res.send("Database reloaded successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error reloading database");
   }
 });
 
