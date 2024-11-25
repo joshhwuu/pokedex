@@ -3,6 +3,7 @@ import db from "./db.js";
 import path from "path";
 import fs from "fs";
 import josh_routes from "./routes/josh_routes.js";
+import matt_routes from "./routes/matt_routes.js";
 
 import cors from "cors";
 const app = express();
@@ -25,6 +26,7 @@ app.post("/reload", async (req, res) => {
 
 // @ team members, please add your routes here in similar fashion
 app.use("/josh", josh_routes);
+app.use("/matt", matt_routes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
