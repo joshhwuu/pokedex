@@ -11,7 +11,7 @@ INSERT INTO pokemon_has_type (id, type_name)
 VALUES (:pokeID, :pokeType);
 
 -- 2.1.2 Implement UPDATE on one relation
--- Update onto the pokemone table
+-- Update onto the pokemon table
 UPDATE Pokemon
 SET pokemon_name = :pokeName, category = :pokeCategory, catch_rate = :pokeCatch, region_name = :pokeRegion, from_id = :pokeFromId;
 WHERE id = :pokeId;

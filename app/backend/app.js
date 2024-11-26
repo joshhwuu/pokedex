@@ -4,6 +4,8 @@ import path from "path";
 import fs from "fs";
 import josh_routes from "./routes/josh_routes.js";
 
+import albert_routes from "./routes/albert_routes.js";
+
 import cors from "cors";
 const app = express();
 
@@ -25,6 +27,8 @@ app.post("/reload", async (req, res) => {
 
 // @ team members, please add your routes here in similar fashion
 app.use("/josh", josh_routes);
+
+app.use("/albert", albert_routes);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
