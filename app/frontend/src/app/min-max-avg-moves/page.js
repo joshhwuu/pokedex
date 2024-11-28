@@ -6,7 +6,7 @@ export default function MaxAndMinDamage() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [checked, setChecked] = useState(false);
-  const [lastQueryMaxOrMin, setLastQueryMaxOrMin] = useState("MAX");
+  const [lastQueryMaxOrMin, setLastQueryMaxOrMin] = useState("MIN");
   
   function handleCheckbox() {
     setChecked(!checked);
@@ -21,7 +21,7 @@ export default function MaxAndMinDamage() {
           setError('No moves in the database.');
         } else {
           setResult(res[0]);
-          setLastQueryMaxOrMin(checked ? "MIN" : "MAX");
+          setLastQueryMaxOrMin(checked ? "MAX" : "MIN");
         }
   
       }).catch((err) => {
@@ -39,7 +39,7 @@ export default function MaxAndMinDamage() {
         Find
       </button>
         <p className="ml-4 text-center text-xl font-bold text-gray-700">
-        {checked ? "MIN": "MAX"}
+        {checked ? "MAX": "MIN"}
         </p>
         <input className='ml-4' type="checkbox" onChange={handleCheckbox} />
 
