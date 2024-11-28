@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function MoveStats() {
-  const [type, setType] = useState('');
+  const [type, setType] = useState("");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -17,7 +17,7 @@ export default function MoveStats() {
         `http://localhost:8008/josh/move-stats/${type}`
       );
       if (!response.ok) {
-        throw new Error('Error retrieving data');
+        throw new Error("Error retrieving data");
       }
       const result = await response.json();
       setData(result);
@@ -30,6 +30,10 @@ export default function MoveStats() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-gray-700">Move Stats</h1>
+      <hr className="my-4 border-gray-300"></hr>
+      <p className="text-gray-700 w-1/2 p-4">
+        See aggregated stats about Pokemon moves based on type.
+      </p>
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
@@ -53,6 +57,7 @@ export default function MoveStats() {
       {data && (
         <div>
           <h2 className="text-xl font-bold text-gray-700">Move Statistics</h2>
+          <hr className="my-4 border-gray-300"></hr>
           <div className="mb-4">
             <p className="font-bold text-gray-700">Type: {data.type_name}</p>
             <p className="text-gray-700">Minimum Power: {data.min}</p>

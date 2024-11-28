@@ -1,11 +1,11 @@
-const fs = require('fs');
+const fs = require("fs");
 
 function loadEnvFile(filePath) {
   if (fs.existsSync(filePath)) {
-    const envFile = fs.readFileSync(filePath, 'utf8');
+    const envFile = fs.readFileSync(filePath, "utf8");
 
-    const envVars = envFile.split('\n').reduce((acc, line) => {
-      const [key, value] = line.split('=');
+    const envVars = envFile.split("\n").reduce((acc, line) => {
+      const [key, value] = line.split("=");
       acc[key] = value;
       return acc;
     }, {});
