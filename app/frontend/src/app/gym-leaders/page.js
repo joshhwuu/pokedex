@@ -20,6 +20,9 @@ export default function GymLeaders() {
       }
       const data = await response.json();
       setData(groupByGymLeader(data));
+      if (data.length === 0) {
+        setError('Could not find Gym Leader.');
+      }
     } catch (err) {
       setError(err.message);
     }
@@ -50,7 +53,7 @@ export default function GymLeaders() {
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Enter gym leader name"
+          placeholder="Misty"
           className="border p-2 mr-2 text-gray-700"
         />
         <button
@@ -60,7 +63,7 @@ export default function GymLeaders() {
           Submit
         </button>
       </form>
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-red-500">Could not find Leader.</p>}
       {data && (
         <div>
           <h2 className="text-xl font-bold text-gray-700">
