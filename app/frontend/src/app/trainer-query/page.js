@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function TrainerQuery() {
-  const [names, setNames] = useState('');
+  const [names, setNames] = useState("");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -14,15 +14,17 @@ export default function TrainerQuery() {
 
     try {
       if (!names) {
-        throw new Error('Please enter a list of Pokémon names.');
+        throw new Error("Please enter a list of Pokémon names.");
       }
       const response = await fetch(
-        `http://localhost:8008/josh/trainers-with-pokemon?names=${names}`
+        `http://localhost:8008/josh/trainers-with-pokemon?names=${names.replace(/\s+/g, "")}`
       );
       if (!response.ok) {
-        throw new Error(
-          'No data received. Make sure your list of names is correctly formatted.'
-        );
+        if (response.status === 404) {
+          throw new Error("No trainers found with the specified Pokémon.");
+        } else {
+          throw new Error("Error retrieving data");
+        }
       }
       const result = await response.json();
       setData(result);
@@ -34,6 +36,12 @@ export default function TrainerQuery() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-gray-700">Trainer Query</h1>
+      <hr className="my-4 border-gray-300"></hr>
+      <p className="text-gray-700 w-1/2 p-4">
+        This query tool allows you to see which trainers own the entirety of a
+        certain list of Pokemon. Please enter Pokemon names as a comma-separated
+        list.
+      </p>
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
@@ -53,10 +61,11 @@ export default function TrainerQuery() {
       {data && (
         <div>
           <h2 className="text-xl font-bold text-gray-700">Trainers</h2>
+          <hr className="my-4 border-gray-300"></hr>
           <ul>
             {data.map((trainer, index) => (
               <li key={index} className="mb-4">
-                <p className="font-bold text-gray-700">{trainer.name}</p>
+                <p className="text-gray-700">{trainer.name}</p>
               </li>
             ))}
           </ul>

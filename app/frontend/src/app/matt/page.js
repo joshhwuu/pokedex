@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
 import {
   allPokemon,
   pokemonInRegion,
   bestWorstMovesType,
-} from '../api-calls/matt_api';
-import { useState } from 'react';
+} from "../api-calls/matt_api";
+import { useState } from "react";
 
 export default function Home() {
   const [checked, setChecked] = useState(false);
@@ -28,7 +28,7 @@ export default function Home() {
         <div> Max average power </div>
       ) : (
         <div> Min average power </div>
-      )}{' '}
+      )}{" "}
     </div>
   );
 }

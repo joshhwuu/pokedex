@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function GymLeaders() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -16,12 +16,12 @@ export default function GymLeaders() {
         `http://localhost:8008/josh/gym-leader/${name}`
       );
       if (!response.ok) {
-        throw new Error('Error retrieving data');
+        throw new Error("Error retrieving data");
       }
       const data = await response.json();
       setData(groupByGymLeader(data));
       if (data.length === 0) {
-        setError('Could not find Gym Leader.');
+        setError("Could not find Gym Leader.");
       }
     } catch (err) {
       setError(err.message);
@@ -48,6 +48,11 @@ export default function GymLeaders() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold text-gray-700">Gym Leaders</h1>
+      <hr className="my-4 border-gray-300"></hr>
+      <p className="text-gray-700 w-1/2 p-4">
+        Find information such as name, age, location and the Pokemon roster of a
+        gym leader.
+      </p>
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
@@ -69,6 +74,7 @@ export default function GymLeaders() {
           <h2 className="text-xl font-bold text-gray-700">
             Gym Leader Information
           </h2>
+          <hr className="my-4 border-gray-300"></hr>
           <ul>
             {data.map((row, index) => (
               <li key={index}>

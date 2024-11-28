@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
 export default function Home() {
   const handleReload = async () => {
     try {
-      const response = await fetch('http://localhost:8008/reload', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8008/reload", {
+        method: "POST",
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error("Network response was not ok");
       }
-      alert('Tables reloaded successfully');
+      alert("Tables reloaded successfully");
     } catch (error) {
-      console.error('Error reloading tables:', error);
-      alert('Error reloading tables');
+      console.error("Error reloading tables:", error);
+      alert("Error reloading tables");
     }
   };
 

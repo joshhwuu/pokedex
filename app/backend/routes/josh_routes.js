@@ -1,9 +1,9 @@
-import express from 'express';
-import db from '../db.js';
+import express from "express";
+import db from "../db.js";
 
 const router = express.Router();
 
-router.get('/gym-leader/:name', async (req, res) => {
+router.get("/gym-leader/:name", async (req, res) => {
   try {
     const gymLeaderName = req.params.name;
     const query = `SELECT 
@@ -23,11 +23,11 @@ router.get('/gym-leader/:name', async (req, res) => {
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error retrieving gym leader data');
+    res.status(500).send("Error retrieving gym leader data");
   }
 });
 
-router.get('/move-stats/:type', async (req, res) => {
+router.get("/move-stats/:type", async (req, res) => {
   try {
     const moveType = req.params.type;
     const query = `SELECT
@@ -44,16 +44,16 @@ router.get('/move-stats/:type', async (req, res) => {
     return res.json(result.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error retrieving move statistics');
+    res.status(500).send("Error retrieving move statistics");
   }
 });
 
-router.get('/trainers-with-pokemon', async (req, res) => {
+router.get("/trainers-with-pokemon", async (req, res) => {
   try {
-    const pokemonNames = req.query.names.split(',');
+    const pokemonNames = req.query.names.split(",");
     const placeHolders = pokemonNames
       .map((_, index) => `$${index + 1}`)
-      .join(', ');
+      .join(", ");
     const preliminaryCheck = `
       SELECT DISTINCT pokemon.pokemon_name
       FROM pokemon
@@ -63,7 +63,7 @@ router.get('/trainers-with-pokemon', async (req, res) => {
     if ((await db.query(preliminaryCheck, pokemonNames)).rows.length === 0) {
       return res
         .status(404)
-        .send('None of the specified Pokemon are owned by a trainer.');
+        .send("None of the specified Pokemon are owned by a trainer.");
     }
     const query = `
       SELECT name
@@ -83,12 +83,12 @@ router.get('/trainers-with-pokemon', async (req, res) => {
     if (result.rows.length === 0) {
       return res
         .status(404)
-        .send('No trainers found with the specified Pokémon.');
+        .send("No trainers found with the specified Pokémon.");
     }
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error retrieving trainers with specified Pokémon');
+    res.status(500).send("Error retrieving trainers with specified Pokémon");
   }
 });
 

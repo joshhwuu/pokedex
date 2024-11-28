@@ -1,5 +1,5 @@
-import axios from 'axios';
-export const url = 'http://localhost:8008';
+import axios from "axios";
+export const url = "http://localhost:8008";
 
 export function apiTest() {
   axios
@@ -8,7 +8,7 @@ export function apiTest() {
       console.log(data);
     })
     .catch((e) => {
-      console.log('error received');
+      console.log("error received");
       console.log(e);
     });
 }

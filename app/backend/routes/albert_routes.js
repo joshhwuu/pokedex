@@ -1,10 +1,10 @@
-import express from 'express';
-import db from '../db.js';
+import express from "express";
+import db from "../db.js";
 
 const router = express.Router();
 
 //2.1.1 INSERT
-router.post('/pokemon', async (req, res) => {
+router.post("/pokemon", async (req, res) => {
   try {
     const {
       pokeId,
@@ -57,14 +57,14 @@ router.post('/pokemon', async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: 'Pokemon and type successfully inserted.' });
+      .json({ message: "Pokemon and type successfully inserted." });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error adding new pokemon');
+    res.status(500).send("Error adding new pokemon");
   }
 });
 
-router.put('/pokemon', async (req, res) => {
+router.put("/pokemon", async (req, res) => {
   try {
     const {
       pokeName,
@@ -95,17 +95,17 @@ router.put('/pokemon', async (req, res) => {
     ]);
 
     if (result.rowCount === 0) {
-      return res.status(404).json({ message: 'Pokemon not found.' });
+      return res.status(404).json({ message: "Pokemon not found." });
     }
 
-    return res.status(200).json({ message: 'Pokemon updated successfully.' });
+    return res.status(200).json({ message: "Pokemon updated successfully." });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error updating Pokemon');
+    res.status(500).send("Error updating Pokemon");
   }
 });
 
-router.delete('/pokemon', async (req, res) => {
+router.delete("/pokemon", async (req, res) => {
   try {
     const { pokeId } = req.body;
     const query = `
@@ -116,17 +116,17 @@ router.delete('/pokemon', async (req, res) => {
     const result = await db.query(query, pokeId);
 
     if (result.rowCount === 0) {
-      return res.status(404).json({ message: 'Pokemon not found.' });
+      return res.status(404).json({ message: "Pokemon not found." });
     }
 
-    return res.status(200).json({ message: 'Pokemon deleted successfully.' });
+    return res.status(200).json({ message: "Pokemon deleted successfully." });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error deleting Pokemon');
+    res.status(500).send("Error deleting Pokemon");
   }
 });
 
-router.get('/pokemon', async (req, res) => {
+router.get("/pokemon", async (req, res) => {
   try {
     const { pokeType, pokeType2 } = req.params;
     const query = `
@@ -140,7 +140,7 @@ router.get('/pokemon', async (req, res) => {
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error retrieving Pokemon of selected types');
+    res.status(500).send("Error retrieving Pokemon of selected types");
   }
 });
 
