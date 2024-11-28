@@ -1,10 +1,8 @@
-"use client";
-
-import { apiTest } from "./api-calls/api";
 export default function Home() {
   return (
-    <div className="testButton">
-      <button onClick={apiTest}>Click to test backend</button>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold text-gray-700">Home Page</h1>
+      <p>Welcome to the Home Page</p>
     </div>
   );
 }

@@ -1,13 +1,14 @@
-import express from "express";
-import db from "../db.js";
+import express from 'express';
+import db from '../db.js';
 
 const router = express.Router();
 
-router.get("/gym-leader/:name", async (req, res) => {
+router.get('/gym-leader/:name', async (req, res) => {
   try {
     const gymLeaderName = req.params.name;
     const query = `SELECT 
         significant_trainer.name,
+        significant_trainer.age,
         gym_leader.gym_location,
         gym_leader.gym_region,
         pokemon.pokemon_name
@@ -22,11 +23,11 @@ router.get("/gym-leader/:name", async (req, res) => {
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error retrieving gym leader data");
+    res.status(500).send('Error retrieving gym leader data');
   }
 });
 
-router.get("/move-stats/:type", async (req, res) => {
+router.get('/move-stats/:type', async (req, res) => {
   try {
     const moveType = req.params.type;
     const query = `SELECT
@@ -43,15 +44,17 @@ router.get("/move-stats/:type", async (req, res) => {
     return res.json(result.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error retrieving move statistics");
+    res.status(500).send('Error retrieving move statistics');
   }
 });
 
-router.get("/trainers-with-pokemon", async (req, res) => {
-    try {
-      const pokemonIds = req.query.ids.split(",").map(id => parseInt(id, 10));
-      const placeholders = pokemonIds.map((_, index) => `$${index + 1}`).join(", ");
-      const query = `SELECT name
+router.get('/trainers-with-pokemon', async (req, res) => {
+  try {
+    const pokemonIds = req.query.ids.split(',').map((id) => parseInt(id, 10));
+    const placeholders = pokemonIds
+      .map((_, index) => `$${index + 1}`)
+      .join(', ');
+    const query = `SELECT name
         FROM significant_trainer
         WHERE NOT EXISTS (
           SELECT id
@@ -64,12 +67,12 @@ router.get("/trainers-with-pokemon", async (req, res) => {
           WHERE pokemon_roster.name = significant_trainer.name
         );
       `;
-      const result = await db.query(query, pokemonIds);
-      return res.json(result.rows);
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Error retrieving trainers with specified Pokémon");
-    }
-  });
+    const result = await db.query(query, pokemonIds);
+    return res.json(result.rows);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Error retrieving trainers with specified Pokémon');
+  }
+});
 
 export default router;
