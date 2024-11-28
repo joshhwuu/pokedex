@@ -1,0 +1,64 @@
+'use client';
+
+import { useState } from 'react';
+
+export default function TrainerQuery() {
+  const [ids, setIds] = useState('');
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setData(null);
+
+    try {
+      const response = await fetch(
+        `http://localhost:8008/josh/trainers-with-pokemon?ids=${ids}`
+      );
+      if (!response.ok) {
+        throw new Error(
+          'Error retrieving data. Make sure your list of IDs is correctly formatted.'
+        );
+      }
+      const result = await response.json();
+      setData(result);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold text-gray-700">Trainer Query</h1>
+      <form onSubmit={handleSubmit} className="mb-4">
+        <input
+          type="text"
+          value={ids}
+          onChange={(e) => setIds(e.target.value)}
+          placeholder="1, 4, 7, 25"
+          className="border p-2 mr-2 text-gray-700"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-gray-700 font-bold py-2 px-4 rounded"
+        >
+          Submit
+        </button>
+      </form>
+      {error && <p className="text-red-500">{error}</p>}
+      {data && (
+        <div>
+          <h2 className="text-xl font-bold text-gray-700">Trainers</h2>
+          <ul>
+            {data.map((trainer, index) => (
+              <li key={index} className="mb-4">
+                <p className="font-bold text-gray-700">{trainer.name}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  );
+}
