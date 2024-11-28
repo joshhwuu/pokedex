@@ -1,43 +1,30 @@
 import axios from "axios";
-import { url } from "./shared_api";
+export const url = "http://localhost:8008";
 
-export function allPokemon() {
-  axios
-    .get(`${url}/matt/all-pokemon`)
-    .then((res) => {
-      console.log(res.data);
-      alert(res.data);
-    })
+export async function allPokemon() {
+  let res = await axios.get(`${url}/matt/all-pokemon`)
     .catch((e) => {
       console.log(e);
     });
+  return res.data;
 }
 
-export function pokemonInRegion() {
-  axios
-    .get(`${url}/matt/pokemon-in-region`)
-    .then((res) => {
-      console.log(res.data);
-      alert(res.data);
-    })
+export async function pokemonInRegion() {
+  let res = await axios.get(`${url}/matt/pokemon-in-region`)
     .catch((e) => {
       console.log(e);
     });
+  return res.data
 }
 
-export function bestWorstMovesType(max) {
+export async function bestWorstMovesType(max) {
   let extreme = max ? "MAX" : "MIN";
-  axios
-    .get(`${url}/matt/best-or-worst-avg-moves-by-type`, {
+  let res = await axios.get(`${url}/matt/best-or-worst-avg-moves-by-type`, {
       params: {
         extreme: extreme,
       },
-    })
-    .then((res) => {
-      console.log(res.data);
-      alert(res.data);
-    })
-    .catch((e) => {
+    }).catch((e) => {
       console.log(e);
     });
+    return res.data;
 }

@@ -27,6 +27,24 @@ export default function Nav() {
       >
         Trainer Query
       </Link>
+      <Link
+        href="/find-all-pokemon"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        All Pokemon
+      </Link>
+      <Link
+        href="/min-max-avg-moves"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Min and Max Average Move Power
+      </Link>
+      <Link
+        href="/pokemon-in-region"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Number of Pokemon in Each Region
+      </Link>
     </nav>
   );
 }
