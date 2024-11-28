@@ -137,6 +137,10 @@ router.get("/pokemon", async (req, res) => {
 
     const result = await db.query(query, [pokeType, pokeType2]);
 
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Pokemon not found." });
+    }
+
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
