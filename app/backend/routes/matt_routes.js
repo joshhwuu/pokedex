@@ -1,9 +1,9 @@
-import express from "express";
-import db from "../db.js";
+import express from 'express';
+import db from '../db.js';
 
 const router = express.Router();
 
-router.get("/all-pokemon", async (req, res) => {
+router.get('/all-pokemon', async (req, res) => {
   try {
     const query = `
     SELECT Pokemon.pokemon_name AS pokemon_name
@@ -13,11 +13,11 @@ router.get("/all-pokemon", async (req, res) => {
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error retrieving pokemon data");
+    res.status(500).send('Error retrieving pokemon data');
   }
 });
 
-router.get("/pokemon-in-region", async (req, res) => {
+router.get('/pokemon-in-region', async (req, res) => {
   try {
     const query = `
     SELECT Pokemon.region_name AS region, COUNT(Pokemon.id) AS num_pokemon
@@ -28,11 +28,11 @@ router.get("/pokemon-in-region", async (req, res) => {
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error retrieving pokemon by region");
+    res.status(500).send('Error retrieving pokemon by region');
   }
 });
 
-router.get("/best-or-worst-avg-moves-by-type", async (req, res) => {
+router.get('/best-or-worst-avg-moves-by-type', async (req, res) => {
   try {
     const extreme = req.query.extreme;
     const query = `
@@ -49,7 +49,7 @@ router.get("/best-or-worst-avg-moves-by-type", async (req, res) => {
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error best/worst average moves by type");
+    res.status(500).send('Error best/worst average moves by type');
   }
 });
 

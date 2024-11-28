@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 export default function TrainerQuery() {
-  const [ids, setIds] = useState('');
+  const [names, setNames] = useState('');
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
 
@@ -13,12 +13,15 @@ export default function TrainerQuery() {
     setData(null);
 
     try {
+      if (!names) {
+        throw new Error('Please enter a list of Pokémon names.');
+      }
       const response = await fetch(
-        `http://localhost:8008/josh/trainers-with-pokemon?ids=${ids}`
+        `http://localhost:8008/josh/trainers-with-pokemon?names=${names}`
       );
       if (!response.ok) {
         throw new Error(
-          'Error retrieving data. Make sure your list of IDs is correctly formatted.'
+          'No data received. Make sure your list of names is correctly formatted.'
         );
       }
       const result = await response.json();
@@ -34,9 +37,9 @@ export default function TrainerQuery() {
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
-          value={ids}
-          onChange={(e) => setIds(e.target.value)}
-          placeholder="1, 4, 7, 25"
+          value={names}
+          onChange={(e) => setNames(e.target.value)}
+          placeholder="Pikachu, Starmie"
           className="border p-2 mr-2 text-gray-700"
         />
         <button

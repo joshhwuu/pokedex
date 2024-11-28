@@ -29,14 +29,14 @@ HAVING move_has_type.type_name = 'Fire';
 -- 2.1.10 User should be able to find if a given list of Pokemon are ALL used in
 --        a trainer's roster.
 SELECT name
-    FROM significant_trainer
+FROM significant_trainer
 WHERE NOT EXISTS (
-SELECT id
-FROM pokemon
-WHERE id IN (1, 2, ...) -- replace with pokemon ids
-EXCEPT
-SELECT pokemon.id
-FROM pokemon_roster
-JOIN pokemon ON pokemon_roster.id = pokemon.id
-WHERE pokemon_roster.name = significant_trainer.name
+    SELECT pokemon_name
+    FROM pokemon
+    WHERE pokemon_name IN (${placeHolders})
+    EXCEPT
+    SELECT pokemon.pokemon_name
+    FROM pokemon_roster
+    JOIN pokemon ON pokemon_roster.id = pokemon.id
+    WHERE pokemon_roster.name = significant_trainer.name
 );

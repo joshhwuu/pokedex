@@ -1,5 +1,5 @@
-import axios from "axios";
-import { url } from "./shared_api";
+import axios from 'axios';
+import { url } from './shared_api';
 
 export function allPokemon() {
   axios
@@ -26,7 +26,7 @@ export function pokemonInRegion() {
 }
 
 export function bestWorstMovesType(max) {
-  let extreme = max ? "MAX" : "MIN";
+  let extreme = max ? 'MAX' : 'MIN';
   axios
     .get(`${url}/matt/best-or-worst-avg-moves-by-type`, {
       params: {
