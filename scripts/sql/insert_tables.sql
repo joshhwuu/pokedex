@@ -388,63 +388,85 @@ INSERT INTO pokemon (id, pokemon_name, category, evolution_item, catch_rate, reg
 (7, 'Squirtle', 'Tiny Turtle', NULL, 45, 'Kanto', NULL),
 (8, 'Wartortle', 'Turtle', NULL, 45, 'Kanto', 7),
 (9, 'Blastoise', 'Shellfish', NULL, 45, 'Kanto', 8),
-(10, 'Pikachu', 'Mouse', NULL, 190, 'Kanto', NULL),
-(11, 'Raichu', 'Mouse', NULL, 75, 'Kanto', 10),
-(12, 'Meowth', 'Scratch Cat', NULL, 255, 'Kanto', NULL),
-(13, 'Koffing', 'Poison Gas', NULL, 190, 'Kanto', NULL),
-(14, 'Weezing', 'Poison Gas', NULL, 60, 'Kanto', 13),
-(15, 'Onix', 'Rock Snake', NULL, 45, 'Kanto', NULL),
-(16, 'Staryu', 'Star Shape', NULL, 225, 'Kanto', NULL),
-(17, 'Starmie', 'Mysterious', NULL, 60, 'Kanto', 16),
-(18, 'Gyarados', 'Atrocious', NULL, 45, 'Kanto', NULL),
-(19, 'Nidoking', 'Drill', NULL, 45, 'Kanto', NULL),
-(20, 'Arbok', 'Cobra', NULL, 90, 'Kanto', NULL),
-(21, 'Pidgeot', 'Bird', NULL, 45, 'Kanto', NULL),
-(22, 'Alakazam', 'Psi', NULL, 50, 'Kanto', NULL),
-(23, 'Rhydon', 'Drill', NULL, 45, 'Kanto', NULL),
-(24, 'Machamp', 'Superpower', NULL, 45, 'Kanto', NULL),
-(25, 'Gengar', 'Shadow', NULL, 45, 'Kanto', NULL),
-(26, 'Dragonite', 'Dragon', NULL, 45, 'Kanto', NULL);
+(10, 'Caterpie', 'Worm', NULL, 255, 'Kanto', NULL),
+(11, 'Metapod', 'Cocoon', NULL, 120, 'Kanto', 10),
+(12, 'Butterfree', 'Butterfly', NULL, 45, 'Kanto', 11),
+(13, 'Weedle', 'Hairy Bug', NULL, 255, 'Kanto', NULL),
+(14, 'Kakuna', 'Cocoon', NULL, 120, 'Kanto', 13),
+(15, 'Beedrill', 'Poison Bee', NULL, 45, 'Kanto', 14),
+(16, 'Pidgey', 'Tiny Bird', NULL, 255, 'Kanto', NULL),
+(17, 'Pidgeotto', 'Bird', NULL, 120, 'Kanto', 16),
+(18, 'Pidgeot', 'Bird', NULL, 45, 'Kanto', 17),
+(19, 'Rattata', 'Mouse', NULL, 255, 'Kanto', NULL),
+(20, 'Raticate', 'Mouse', NULL, 127, 'Kanto', 19),
+(21, 'Spearow', 'Tiny Bird', NULL, 255, 'Kanto', NULL),
+(22, 'Fearow', 'Beak', NULL, 90, 'Kanto', 21),
+(23, 'Ekans', 'Snake', NULL, 255, 'Kanto', NULL),
+(24, 'Arbok', 'Cobra', NULL, 90, 'Kanto', 23),
+(25, 'Pikachu', 'Mouse', NULL, 190, 'Kanto', NULL),
+(26, 'Raichu', 'Mouse', NULL, 75, 'Kanto', 25),
+(27, 'Sandshrew', 'Mouse', NULL, 255, 'Kanto', NULL),
+(28, 'Sandslash', 'Mouse', NULL, 90, 'Kanto', 27),
+(29, 'Nidoran♀', 'Poison Pin', NULL, 235, 'Kanto', NULL),
+(30, 'Nidorina', 'Poison Pin', NULL, 120, 'Kanto', 29),
+(31, 'Nidoqueen', 'Drill', NULL, 45, 'Kanto', 30),
+(32, 'Nidoran♂', 'Poison Pin', NULL, 235, 'Kanto', NULL),
+(33, 'Nidorino', 'Poison Pin', NULL, 120, 'Kanto', 32),
+(34, 'Nidoking', 'Drill', NULL, 45, 'Kanto', 33),
+(35, 'Clefairy', 'Fairy', NULL, 150, 'Kanto', NULL),
+(36, 'Clefable', 'Fairy', NULL, 25, 'Kanto', 35),
+(37, 'Vulpix', 'Fox', NULL, 190, 'Kanto', NULL),
+(38, 'Ninetales', 'Fox', NULL, 75, 'Kanto', 37),
+(39, 'Jigglypuff', 'Balloon', NULL, 170, 'Kanto', NULL),
+(40, 'Wigglytuff', 'Balloon', NULL, 50, 'Kanto', 39),
+(41, 'Zubat', 'Bat', NULL, 255, 'Kanto', NULL),
+(42, 'Golbat', 'Bat', NULL, 90, 'Kanto', 41),
+(43, 'Oddish', 'Weed', NULL, 255, 'Kanto', NULL),
+(44, 'Gloom', 'Weed', NULL, 120, 'Kanto', 43),
+(45, 'Vileplume', 'Flower', NULL, 45, 'Kanto', 44),
+(46, 'Paras', 'Mushroom', NULL, 190, 'Kanto', NULL),
+(47, 'Parasect', 'Mushroom', NULL, 75, 'Kanto', 46),
+(48, 'Venonat', 'Insect', NULL, 190, 'Kanto', NULL),
+(49, 'Venomoth', 'Poison Moth', NULL, 75, 'Kanto', 48),
+(50, 'Diglett', 'Mole', NULL, 255, 'Kanto', NULL),
+(120, 'Staryu', 'Star Shape', NULL, 225, 'Kanto', NULL),
+(121, 'Starmie', 'Mysterious', NULL, 60, 'Kanto', 120),
+(95, 'Onix', 'Rock Snake', NULL, 45, 'Kanto', NULL),
+(109, 'Koffing', 'Poison Gas', NULL, 190, 'Kanto', NULL),
+(110, 'Weezing', 'Poison Gas', NULL, 60, 'Kanto', 109);
 
 -- Insert example data into pokemon_roster table
 -- James
 INSERT INTO pokemon_roster (name, id) VALUES 
-('James', 12),  -- Meowth
-('James', 13),  -- Koffing
-('James', 14);  -- Weezing
+('James', 23),  -- Ekans
+('James', 24),  -- Arbok
+('James', 109),  -- Koffing
+('James', 110);  -- Weezing
 
 -- Giovanni
 INSERT INTO pokemon_roster (name, id) VALUES 
-('Giovanni', 19),  -- Nidoking
-('Giovanni', 20);  -- Arbok
+('Giovanni', 34),  -- Nidoking
+('Giovanni', 24);  -- Arbok
 
 -- Misty
 INSERT INTO pokemon_roster (name, id) VALUES 
-('Misty', 16),  -- Staryu
-('Misty', 17),  -- Starmie
-('Misty', 18);  -- Gyarados
+('Misty', 120),  -- Staryu
+('Misty', 121);  -- Starmie
 
 -- Brock
 INSERT INTO pokemon_roster (name, id) VALUES 
-('Brock', 15);  -- Onix
+('Brock', 95);  -- Onix
 
 -- Ash
 INSERT INTO pokemon_roster (name, id) VALUES 
 ('Ash', 1),  -- Bulbasaur
 ('Ash', 4),  -- Charmander
 ('Ash', 7),  -- Squirtle
-('Ash', 10); -- Pikachu
+('Ash', 25), -- Pikachu
+('Ash', 121); -- Starmie
 
--- Red
-INSERT INTO pokemon_roster (name, id) VALUES 
-('Red', 21),  -- Pidgeot
-('Red', 22),  -- Alakazam
-('Red', 23),  -- Rhydon
-('Red', 24),  -- Machamp
-('Red', 25),  -- Gengar
-('Red', 26);  -- Dragonite
-
-INSERT INTO pokemon_has_type (id, type_name) VALUES 
+-- Insert example data into pokemon_has_type table
+INSERT INTO pokemon_has_type (id, type_name) VALUES
 (1, 'Grass'), (1, 'Poison'),
 (2, 'Grass'), (2, 'Poison'),
 (3, 'Grass'), (3, 'Poison'),
@@ -454,23 +476,47 @@ INSERT INTO pokemon_has_type (id, type_name) VALUES
 (7, 'Water'),
 (8, 'Water'),
 (9, 'Water'),
-(10, 'Electric'),
-(11, 'Electric'),
-(12, 'Normal'),
-(13, 'Poison'),
-(14, 'Poison'),
-(15, 'Rock'), (15, 'Ground'),
-(16, 'Water'),
-(17, 'Water'), (17, 'Psychic'),
-(18, 'Water'), (18, 'Flying'),
-(19, 'Poison'), (19, 'Ground'),
-(20, 'Poison'),
+(10, 'Bug'),
+(11, 'Bug'),
+(12, 'Bug'), (12, 'Flying'),
+(13, 'Bug'), (13, 'Poison'),
+(14, 'Bug'), (14, 'Poison'),
+(15, 'Bug'), (15, 'Poison'),
+(16, 'Normal'), (16, 'Flying'),
+(17, 'Normal'), (17, 'Flying'),
+(18, 'Normal'), (18, 'Flying'),
+(19, 'Normal'),
+(20, 'Normal'),
 (21, 'Normal'), (21, 'Flying'),
-(22, 'Psychic'),
-(23, 'Ground'), (23, 'Rock'),
-(24, 'Fighting'),
-(25, 'Ghost'), (25, 'Poison'),
-(26, 'Dragon'), (26, 'Flying');
+(22, 'Normal'), (22, 'Flying'),
+(23, 'Poison'),
+(24, 'Poison'),
+(25, 'Electric'),
+(26, 'Electric'),
+(27, 'Ground'),
+(28, 'Ground'),
+(29, 'Poison'),
+(30, 'Poison'),
+(31, 'Poison'), (31, 'Ground'),
+(32, 'Poison'),
+(33, 'Poison'),
+(34, 'Poison'), (34, 'Ground'),
+(35, 'Fairy'),
+(36, 'Fairy'),
+(37, 'Fire'),
+(38, 'Fire'),
+(39, 'Normal'), (39, 'Fairy'),
+(40, 'Normal'), (40, 'Fairy'),
+(41, 'Poison'), (41, 'Flying'),
+(42, 'Poison'), (42, 'Flying'),
+(43, 'Grass'), (43, 'Poison'),
+(44, 'Grass'), (44, 'Poison'),
+(45, 'Grass'), (45, 'Poison'),
+(46, 'Bug'), (46, 'Grass'),
+(47, 'Bug'), (47, 'Grass'),
+(48, 'Bug'), (48, 'Poison'),
+(49, 'Bug'), (49, 'Poison'),
+(50, 'Ground');
 
 INSERT INTO move (move_name, power, pp, physical_contact, category, accuracy) VALUES 
 ('Tackle', 40, 35, TRUE, 'Physical', 100),
@@ -500,6 +546,7 @@ INSERT INTO move_has_type (move_name, type_name) VALUES
 ('Hyper Beam', 'Normal'),
 ('Dragon Rage', 'Dragon');
 
+-- Insert example data into learns table
 -- Bulbasaur
 INSERT INTO learns (move_name, id) VALUES 
 ('Tackle', 1),
@@ -517,61 +564,8 @@ INSERT INTO learns (move_name, id) VALUES
 
 -- Pikachu
 INSERT INTO learns (move_name, id) VALUES 
-('Thunder Shock', 10);
-
--- Meowth
-INSERT INTO learns (move_name, id) VALUES 
-('Scratch', 12);
-
--- Koffing
-INSERT INTO learns (move_name, id) VALUES 
-('Poison Gas', 13);
-
--- Onix
-INSERT INTO learns (move_name, id) VALUES 
-('Rock Throw', 15);
-
--- Staryu
-INSERT INTO learns (move_name, id) VALUES 
-('Water Gun', 16);
-
--- Starmie
-INSERT INTO learns (move_name, id) VALUES 
-('Bubble Beam', 17),
-('Psychic', 17);
-
--- Gyarados
-INSERT INTO learns (move_name, id) VALUES 
-('Hyper Beam', 18);
-
--- Nidoking
-INSERT INTO learns (move_name, id) VALUES 
-('Poison Gas', 19);
-
--- Arbok
-INSERT INTO learns (move_name, id) VALUES 
-('Poison Gas', 20);
+('Thunder Shock', 25);
 
 -- Pidgeot
 INSERT INTO learns (move_name, id) VALUES 
-('Tackle', 21);
-
--- Alakazam
-INSERT INTO learns (move_name, id) VALUES 
-('Psychic', 22);
-
--- Rhydon
-INSERT INTO learns (move_name, id) VALUES 
-('Rock Throw', 23);
-
--- Machamp
-INSERT INTO learns (move_name, id) VALUES 
-('Tackle', 24);
-
--- Gengar
-INSERT INTO learns (move_name, id) VALUES 
-('Psychic', 25);
-
--- Dragonite
-INSERT INTO learns (move_name, id) VALUES 
-('Dragon Rage', 26);
+('Tackle', 18);

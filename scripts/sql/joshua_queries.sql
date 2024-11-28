@@ -2,6 +2,7 @@
 --       and their Pokemon Roster. Brock is an example gym leader.
 SELECT 
     SignificantTrainer.name,
+    SignificantTrainer.age,
     GymLeader.gym_location,
     GymLeader.gym_region,
     Pokemon.name
