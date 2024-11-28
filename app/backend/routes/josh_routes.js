@@ -1,9 +1,9 @@
-import express from 'express';
-import db from '../db.js';
+import express from "express";
+import db from "../db.js";
 
 const router = express.Router();
 
-router.get('/gym-leader/:name', async (req, res) => {
+router.get("/gym-leader/:name", async (req, res) => {
   try {
     const gymLeaderName = req.params.name;
     const query = `SELECT 
@@ -23,11 +23,11 @@ router.get('/gym-leader/:name', async (req, res) => {
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error retrieving gym leader data');
+    res.status(500).send("Error retrieving gym leader data");
   }
 });
 
-router.get('/move-stats/:type', async (req, res) => {
+router.get("/move-stats/:type", async (req, res) => {
   try {
     const moveType = req.params.type;
     const query = `SELECT
@@ -44,34 +44,51 @@ router.get('/move-stats/:type', async (req, res) => {
     return res.json(result.rows[0]);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error retrieving move statistics');
+    res.status(500).send("Error retrieving move statistics");
   }
 });
 
-router.get('/trainers-with-pokemon', async (req, res) => {
+router.get("/trainers-with-pokemon", async (req, res) => {
   try {
-    const pokemonIds = req.query.ids.split(',').map((id) => parseInt(id, 10));
-    const placeholders = pokemonIds
+    const pokemonNames = req.query.names.split(",");
+    const placeHolders = pokemonNames
       .map((_, index) => `$${index + 1}`)
-      .join(', ');
-    const query = `SELECT name
-        FROM significant_trainer
-        WHERE NOT EXISTS (
-          SELECT id
-          FROM pokemon
-          WHERE id IN (${placeholders})
-          EXCEPT
-          SELECT pokemon.id
-          FROM pokemon_roster
-          JOIN pokemon ON pokemon_roster.id = pokemon.id
-          WHERE pokemon_roster.name = significant_trainer.name
-        );
-      `;
-    const result = await db.query(query, pokemonIds);
+      .join(", ");
+    const preliminaryCheck = `
+      SELECT DISTINCT pokemon.pokemon_name
+      FROM pokemon
+      JOIN pokemon_roster ON pokemon.id = pokemon_roster.id
+      WHERE pokemon.pokemon_name IN (${placeHolders});
+    `;
+    if ((await db.query(preliminaryCheck, pokemonNames)).rows.length === 0) {
+      return res
+        .status(404)
+        .send("None of the specified Pokemon are owned by a trainer.");
+    }
+    const query = `
+      SELECT name
+      FROM significant_trainer
+      WHERE NOT EXISTS (
+        SELECT pokemon_name
+        FROM pokemon
+        WHERE pokemon_name IN (${placeHolders})
+        EXCEPT
+        SELECT pokemon.pokemon_name
+        FROM pokemon_roster
+        JOIN pokemon ON pokemon_roster.id = pokemon.id
+        WHERE pokemon_roster.name = significant_trainer.name
+      );
+    `;
+    const result = await db.query(query, pokemonNames);
+    if (result.rows.length === 0) {
+      return res
+        .status(404)
+        .send("No trainers found with the specified Pokémon.");
+    }
     return res.json(result.rows);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Error retrieving trainers with specified Pokémon');
+    res.status(500).send("Error retrieving trainers with specified Pokémon");
   }
 });
 

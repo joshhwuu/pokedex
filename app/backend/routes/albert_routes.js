@@ -6,8 +6,17 @@ const router = express.Router();
 //2.1.1 INSERT
 router.post("/pokemon", async (req, res) => {
   try {
-    const { pokeId, pokeName, pokeCategory, pokeCatch, pokeRegion, pokeEvoItem, pokeFromId, pokeType } = req.body;
-    
+    const {
+      pokeId,
+      pokeName,
+      pokeCategory,
+      pokeCatch,
+      pokeRegion,
+      pokeEvoItem,
+      pokeFromId,
+      pokeType,
+    } = req.body;
+
     const pokeInsertQuery = `
       INSERT INTO pokemon(
         id, 
@@ -20,8 +29,15 @@ router.post("/pokemon", async (req, res) => {
       ) 
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
-    const pokeInsertResult = await db.query(pokeInsertQuery, [pokeId, pokeName, pokeCategory, pokeCatch, 
-      pokeRegion, pokeEvoItem, pokeFromId]);
+    const pokeInsertResult = await db.query(pokeInsertQuery, [
+      pokeId,
+      pokeName,
+      pokeCategory,
+      pokeCatch,
+      pokeRegion,
+      pokeEvoItem,
+      pokeFromId,
+    ]);
 
     const typeInsertQuery = `
       INSERT INTO type(type_name)
@@ -34,9 +50,14 @@ router.post("/pokemon", async (req, res) => {
       INSERT INTO pokemon_has_type(id, type_name)
       VALUES ($1, $2);
     `;
-    const pokeHasTypeInsertResult = await db.query(pokeHasTypeInsertQuery, [pokeId, pokeType]);
+    const pokeHasTypeInsertResult = await db.query(pokeHasTypeInsertQuery, [
+      pokeId,
+      pokeType,
+    ]);
 
-    return res.status(201).json({ message: "Pokemon and type successfully inserted." });
+    return res
+      .status(201)
+      .json({ message: "Pokemon and type successfully inserted." });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Error adding new pokemon");
@@ -45,7 +66,14 @@ router.post("/pokemon", async (req, res) => {
 
 router.put("/pokemon", async (req, res) => {
   try {
-    const { pokeName, pokeCategory, pokeCatch, pokeRegion, pokeFromId, pokeId } = req.body;
+    const {
+      pokeName,
+      pokeCategory,
+      pokeCatch,
+      pokeRegion,
+      pokeFromId,
+      pokeId,
+    } = req.body;
     const query = `
       UPDATE pokemon
       SET
@@ -57,7 +85,14 @@ router.put("/pokemon", async (req, res) => {
       WHERE
         id = $6;
       `;
-    const result = await db.query(query, [pokeName, pokeCategory, pokeCatch, pokeRegion, pokeFromId, pokeId]);
+    const result = await db.query(query, [
+      pokeName,
+      pokeCategory,
+      pokeCatch,
+      pokeRegion,
+      pokeFromId,
+      pokeId,
+    ]);
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Pokemon not found." });
