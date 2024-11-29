@@ -51,7 +51,7 @@ router.post("/pokemon", async (req, res) => {
       ) 
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
-    const pokeInsertResult = await db.query(pokeInsertQuery, [
+    await db.query(pokeInsertQuery, [
       pokeIdInt,
       pokeName,
       pokeCategory,
