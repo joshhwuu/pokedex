@@ -45,22 +45,16 @@ export default function Home() {
   const handleAddPokemon = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8008/albert/pokemon", {
-        method: "POST",
-        headers: {
-          "Content-Type": 'application/json',
-        },
-        body: JSON.stringify({
-          pokeId: pokeId,
-          pokeName: pokeName,
-          pokeCategory: pokeCategory,
-          pokeCatch: pokeCatch,
-          pokeRegion: pokeRegion,
-          pokeEvoItem: pokeEvoItem,
-          pokeFromId: pokeFromId,
-          pokeType: pokeType,
-        }),
-      });
+      const pokeInfo = JSON.stringify({
+        pokeId: pokeId,
+        pokeName: pokeName,
+        pokeCategory: pokeCategory,
+        pokeCatch: pokeCatch,
+        pokeRegion: pokeRegion,
+        pokeEvoItem: pokeEvoItem,
+        pokeFromId: pokeFromId,
+        pokeType: pokeType,
+      })
 
       const pokeIdInt = parseInt(pokeId, 10);
       const pokeCatchInt = parseInt(pokeCatch, 10);
@@ -68,12 +62,45 @@ export default function Home() {
 
       // Validate types
       if (isNaN(pokeIdInt) || isNaN(pokeCatchInt) || (pokeFromId && isNaN(pokeFromIdInt))) {
-        alert("Please enter valid numbers for ID, Catch Rate, and From ID.");
+        alert("Only valid numbers are allowed for ID, Catch Rate, and From ID.");
         return;
       }
 
+      if (!(typeof pokeName == "string")) {
+        alert("Pokemon name must be a string");
+        return;
+      }
+
+      if (
+      (!(typeof pokeCategory == "string") && pokeCategory != null) || 
+      (!(typeof pokeRegion == "string") && pokeRegion != null) || 
+      (!(typeof pokeEvoItem == "string") && pokeEvoItem != null) || 
+      (!(typeof pokeType  == "string") && pokeType != null)
+      ) {
+        alert("Only valid strings are allowed for Category, Region, Evolution Item, and Type.");
+        return;
+      }
+
+
+      const response = await fetch("http://localhost:8008/albert/pokemon", {
+        method: "POST",
+        headers: {
+          "Content-Type": 'application/json',
+        },
+        body: pokeInfo,
+      });
+
+
       if (!response.ok) {
-        throw new Error("Failed to insert Pokemon");
+        return response.text().then(text => { 
+          if (text.includes("pokemon_pkey")) {
+            alert("Pokemon with ID already exists.");
+          } else if (text.includes("pokemon_pokemon_name_key")) {
+            alert("Pokemon with name already exists.");
+          } else{
+            alert(text);
+          }
+         })
       }
 
       alert("Pokemon added successfully");

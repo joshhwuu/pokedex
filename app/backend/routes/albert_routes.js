@@ -34,7 +34,8 @@ router.post("/pokemon", async (req, res) => {
     async function insertPokemonType(type) {
       const pokeHasTypeInsertQuery = `
       INSERT INTO pokemon_has_type(id, type_name)
-      VALUES ($1, $2);
+      VALUES ($1, $2)
+      ON CONFLICT DO NOTHING;
     `;
       await db.query(pokeHasTypeInsertQuery, [pokeId, type]);
     }
@@ -70,7 +71,7 @@ router.post("/pokemon", async (req, res) => {
       .json({ message: "Pokemon and type successfully inserted." });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error adding new pokemon");
+    res.status(500).send(err.message);
   }
 });
 
