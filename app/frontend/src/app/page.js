@@ -62,6 +62,16 @@ export default function Home() {
         }),
       });
 
+      const pokeIdInt = parseInt(pokeId, 10);
+      const pokeCatchInt = parseInt(pokeCatch, 10);
+      const pokeFromIdInt = pokeFromId ? parseInt(pokeFromId, 10) : null;
+
+      // Validate types
+      if (isNaN(pokeIdInt) || isNaN(pokeCatchInt) || (pokeFromId && isNaN(pokeFromIdInt))) {
+        alert("Please enter valid numbers for ID, Catch Rate, and From ID.");
+        return;
+      }
+
       if (!response.ok) {
         throw new Error("Failed to insert Pokemon");
       }
