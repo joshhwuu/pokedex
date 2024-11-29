@@ -49,7 +49,7 @@ export default function GymLeaders() {
     <div className="p-4">
       <h1 className="text-2xl font-bold text-gray-700">Gym Leaders</h1>
       <hr className="my-4 border-gray-300"></hr>
-      <p className="text-gray-700 w-1/2 p-4">
+      <p className="text-gray-700 w-1/2 pb-4">
         Find information such as name, age, location and the Pokemon roster of a
         gym leader.
       </p>

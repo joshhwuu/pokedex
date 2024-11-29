@@ -35,15 +35,17 @@ router.get("/pokemon-in-region", async (req, res) => {
 router.get("/best-or-worst-avg-moves-by-type", async (req, res) => {
   try {
     const extreme = req.query.extreme;
+    const ord = extreme === "MAX" ? "DESC" : "ASC";
     const query = `
-    SELECT type, ${extreme}(power) AS power
+    SELECT type, power
     FROM (
         SELECT MT.type_name AS type, AVG(m.power) AS power
         FROM Move M INNER JOIN move_has_type MT
         ON M.move_name = MT.move_name
         GROUP BY MT.type_name
     ) AS avg_power
-    GROUP BY type;
+    ORDER BY power ${ord}
+    LIMIT 1;
     `;
     const result = await db.query(query);
     return res.json(result.rows);

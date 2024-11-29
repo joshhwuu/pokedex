@@ -22,11 +22,12 @@ GROUP BY Pokemon.region_name;
 Users should be able to find the Pokemon type with the strongest/weakest average power of their moves.
 */
 
-SELECT type, MAX(power) AS power -- !! should be able to select min or max
+SELECT type, power
 FROM (
-    SELECT MT.type_name AS type, AVG(m.power) AS power
-    FROM Move M INNER JOIN move_has_type MT
-    ON M.move_name = MT.move_name
-    GROUP BY MT.type_name
+SELECT MT.type_name AS type, AVG(m.power) AS power
+FROM Move M INNER JOIN move_has_type MT
+ON M.move_name = MT.move_name
+GROUP BY MT.type_name
 ) AS avg_power
-GROUP BY type;
+ORDER BY power DESC -- !! should be able to select min or max
+LIMIT 1;

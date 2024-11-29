@@ -31,16 +31,17 @@ export default function MoveStats() {
     <div className="p-4">
       <h1 className="text-2xl font-bold text-gray-700">Move Stats</h1>
       <hr className="my-4 border-gray-300"></hr>
-      <p className="text-gray-700 w-1/2 p-4">
-        See aggregated stats about Pokemon moves based on type.
+      <p className="text-gray-700 w-1/2 pb-4">
+      See aggregated stats about Pokemon moves based on type.
       </p>
+
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
           value={type}
           onChange={(e) => setType(e.target.value)}
           placeholder="Water"
-          className="border p-2 mr-2 text-gray-700 text-gray-700"
+          className="border p-2 mr-2 text-gray-700"
         />
         <button
           type="submit"
