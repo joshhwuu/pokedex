@@ -41,7 +41,7 @@ export default function MoveStats() {
           value={type}
           onChange={(e) => setType(e.target.value)}
           placeholder="Water"
-          className="border p-2 mr-2 text-gray-700 text-gray-700"
+          className="border p-2 mr-2 text-gray-700"
         />
         <button
           type="submit"

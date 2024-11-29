@@ -34,8 +34,8 @@ export default function MaxAndMinDamage() {
     <div className="p-4">
       <h1 className="text-2xl font-bold text-gray-700">Max and Min Average Damage</h1>
       <hr className="my-4 border-gray-300"></hr>
-      <p className="text-gray-700 w-1/2 pb-4">
-      Find the move type with the highest or lowest average damage
+      <p className="text-gray-700 w-3/5 pb-4">
+      Find the move type with the highest or lowest average damage of all types
       </p>
 
     <div className='inline-flex items-center'>
