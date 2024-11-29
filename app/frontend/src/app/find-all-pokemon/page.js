@@ -25,12 +25,11 @@ export default function FindAllPokemon() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-gray-700">
-        Find The Names of All Pokemon
-      </h1>
-      <h1 className="mt-1 mb-3 text-m font-bold text-gray-700">
-        Each pokemon registered in our database will be shown here
-      </h1>
+      <h1 className="text-2xl font-bold text-gray-700">Find The Names of All Pokemon</h1>
+      <hr className="my-4 border-gray-300"></hr>
+      <p className="text-gray-700 w-1/2 pb-4">
+      Each pokemon registered in our database will be shown here      
+      </p>
       <div>
         <button
           className="bg-blue-500 hover:bg-blue-700 text-gray-700 font-bold py-2 px-4 rounded"
@@ -42,13 +41,9 @@ export default function FindAllPokemon() {
 
       {result && (
         <div>
-          <div class="grid grid-cols-5 gap-4">
-            {result.map((entry, i) => (
-              <p className="text-gray-700" key={i}>
-                {entry.pokemon_name}
-              </p>
-            ))}
-          </div>
+            <div className="grid mt-5 grid-cols-5 gap-4">
+            {result.map((entry, i) => <p className='text-gray-700' key={i}>{entry.pokemon_name}</p>)}
+            </div>
         </div>
       )}
       {error && <p className="text-red-500">Could not find Pokemon.</p>}

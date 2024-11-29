@@ -37,7 +37,7 @@ export default function TrainerQuery() {
     <div className="p-4">
       <h1 className="text-2xl font-bold text-gray-700">Trainer Query</h1>
       <hr className="my-4 border-gray-300"></hr>
-      <p className="text-gray-700 w-1/2 p-4">
+      <p className="text-gray-700 w-3/5 pb-4">
         This query tool allows you to see which trainers own the entirety of a
         certain list of Pokemon. Please enter Pokemon names as a comma-separated
         list.
