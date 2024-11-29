@@ -136,12 +136,12 @@ router.delete("/pokemon", async (req, res) => {
 
 router.get("/pokemon", async (req, res) => {
   try {
-    const { pokeType, pokeType2 } = req.params;
+    const { pokeType, pokeType2 } = req.params; // TODO: this needs to be req.query
     const query = `
     SELECT distinct id
     FROM pokemon
     WHERE type_name IN ($1, $2);
-    `;
+    `; // TODO: this query is incorrect: it should be a join with pokemon_has_type and we should return pokemon_name instead
 
     const result = await db.query(query, [pokeType, pokeType2]);
 

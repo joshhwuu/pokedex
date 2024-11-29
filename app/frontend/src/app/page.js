@@ -447,13 +447,14 @@ export default function Home() {
             </button>
           </form>
           {/* Display Pokemon List */}
+          {/* TODO: Fetched pokemon should be updated to display names instead */}
           {pokemonList.length > 0 && (
             <div className="mt-4">
               <h3 className="font-semibold">Fetched Pokemon:</h3>
               <ul>
                 {pokemonList.map((pokemon) => (
                   <li key={pokemon.pokeId}>
-                    {pokemon.pokeName} (ID: {pokemon.pokeId})
+                    {pokemon.pokeName} (ID: {pokemon.pokeId /* should be pokemon.pokemon_name */})
                   </li>
                 ))}
               </ul>
