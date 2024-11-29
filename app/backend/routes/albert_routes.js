@@ -17,13 +17,18 @@ router.post("/pokemon", async (req, res) => {
       pokeType,
     } = req.body;
 
+    const pokeIdInt = parseInt(pokeId, 10);
+    const pokeCatchRateInt = parseInt(pokeCatch, 10);
+    const pokeFromIdInt = pokeFromId ? parseInt(pokeFromId, 10) : null;
+    const pokeEvoItemVal = pokeEvoItem === "" ? null : pokeEvoItem;
+
     async function insertIntoTypes(type) {
       const typeInsertQuery = `
       INSERT INTO type(type_name)
       VALUES($1) 
       ON CONFLICT DO NOTHING;
     `;
-      const typeInsertResult = await db.query(typeInsertQuery, [type]);
+      db.query(typeInsertQuery, [type]);
     }
 
     async function insertPokemonType(type) {
@@ -31,10 +36,7 @@ router.post("/pokemon", async (req, res) => {
       INSERT INTO pokemon_has_type(id, type_name)
       VALUES ($1, $2);
     `;
-      const pokeHasTypeInsertResult = await db.query(pokeHasTypeInsertQuery, [
-        pokeId,
-        type,
-      ]);
+      await db.query(pokeHasTypeInsertQuery, [pokeId, type]);
     }
 
     const pokeInsertQuery = `
@@ -50,13 +52,13 @@ router.post("/pokemon", async (req, res) => {
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
     const pokeInsertResult = await db.query(pokeInsertQuery, [
-      pokeId,
+      pokeIdInt,
       pokeName,
       pokeCategory,
-      pokeEvoItem,
-      pokeCatch,
+      pokeEvoItemVal,
+      pokeCatchRateInt,
       pokeRegion,
-      pokeFromId,
+      pokeFromIdInt,
     ]);
 
     // removes whitespace, splits commas, inserts each one at a time into db

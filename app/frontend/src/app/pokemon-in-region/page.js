@@ -25,10 +25,12 @@ export default function FindAllPokemon() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-gray-700">Number of Pokemon in Each Region</h1>
+      <h1 className="text-2xl font-bold text-gray-700">
+        Number of Pokemon in Each Region
+      </h1>
       <hr className="my-4 border-gray-300"></hr>
       <p className="text-gray-700 w-1/2 pb-4">
-      Find how many pokemon are in each region.
+        Find how many pokemon are in each region.
       </p>
 
       <div>
