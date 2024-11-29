@@ -230,6 +230,7 @@ export default function Home() {
             <input
               type="text"
               value={pokeId}
+              placeholder="385"
               onChange={(e) => setPokeId(e.target.value)}
               className="border px-3 py-2 text-blue-700 mt-1 w-full"
               required
@@ -240,6 +241,7 @@ export default function Home() {
             <input
               type="text"
               value={pokeName}
+              placeholder="Jirachi"
               onChange={(e) => setPokeName(e.target.value)}
               className="border px-3 py-2 text-blue-700 mt-1 w-full"
               required
@@ -251,6 +253,7 @@ export default function Home() {
             <input
               type="text"
               value={pokeCategory}
+              placeholder="Wish Pokemon"
               onChange={(e) => setPokeCategory(e.target.value)}
               className="border px-3 py-2 text-blue-700 mt-1 w-full"
               required
@@ -261,6 +264,7 @@ export default function Home() {
             <input
               type="text"
               value={pokeCatch}
+              placeholder="3"
               onChange={(e) => setPokeCatch(e.target.value)}
               className="border px-3 py-2 text-blue-700 mt-1 w-full"
               required
@@ -272,6 +276,7 @@ export default function Home() {
             <input
               type="text"
               value={pokeRegion}
+              placeholder="Kanto"
               onChange={(e) => setPokeRegion(e.target.value)}
               className="border px-3 py-2 text-blue-700 mt-1 w-full"
               required
@@ -301,6 +306,7 @@ export default function Home() {
             <input
               type="text"
               value={pokeType}
+              placeholder="Steel, Psychic"
               onChange={(e) => setPokeType(e.target.value)}
               className="border px-3 py-2 text-blue-700 mt-1 w-full"
             />
