@@ -45,20 +45,20 @@ export default function Home() {
   const handleAddPokemon = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8008/pokemon", {
+      const response = await fetch("http://localhost:8008/albert/pokemon", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": 'application/json',
         },
         body: JSON.stringify({
-          pokeId,
-          pokeName,
-          pokeCategory,
-          pokeCatch,
-          pokeRegion,
-          pokeEvoItem,
-          pokeFromId,
-          pokeType,
+          pokeId: pokeId,
+          pokeName: pokeName,
+          pokeCategory: pokeCategory,
+          pokeCatch: pokeCatch,
+          pokeRegion: pokeRegion,
+          pokeEvoItem: pokeEvoItem,
+          pokeFromId: pokeFromId,
+          pokeType: pokeType,
         }),
       });
 
@@ -84,7 +84,7 @@ export default function Home() {
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8008/pokemon", {
+      const response = await fetch("http://localhost:8008/albert/pokemon", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +116,7 @@ export default function Home() {
   const handleDeleteSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8008/pokemon", {
+      const response = await fetch("http://localhost:8008/albert/pokemon", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -143,7 +143,7 @@ export default function Home() {
     event.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:8008/pokemon?pokeType=${pokeType1}&pokeType2=${pokeType2}`,
+        `http://localhost:8008/albert/pokemon?pokeType=${pokeType1}&pokeType2=${pokeType2}`,
         {
           method: "GET",
         }

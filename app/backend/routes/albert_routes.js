@@ -17,14 +17,34 @@ router.post("/pokemon", async (req, res) => {
       pokeType,
     } = req.body;
 
+    async function insertIntoTypes(type) {
+      const typeInsertQuery = `
+      INSERT INTO type(type_name)
+      VALUES($1) 
+      ON CONFLICT DO NOTHING;
+    `;
+      const typeInsertResult = await db.query(typeInsertQuery, [type]);
+    }
+
+    async function insertPokemonType(type) {
+      const pokeHasTypeInsertQuery = `
+      INSERT INTO pokemon_has_type(id, type_name)
+      VALUES ($1, $2);
+    `;
+      const pokeHasTypeInsertResult = await db.query(pokeHasTypeInsertQuery, [
+        pokeId,
+        type,
+      ]);
+    }
+
     const pokeInsertQuery = `
       INSERT INTO pokemon(
         id, 
         pokemon_name, 
         category, 
+        evolution_item,
         catch_rate, 
         region_name, 
-        evolution_item, 
         from_id
       ) 
       VALUES ($1, $2, $3, $4, $5, $6, $7)
@@ -33,27 +53,15 @@ router.post("/pokemon", async (req, res) => {
       pokeId,
       pokeName,
       pokeCategory,
+      pokeEvoItem,
       pokeCatch,
       pokeRegion,
-      pokeEvoItem,
       pokeFromId,
     ]);
 
-    const typeInsertQuery = `
-      INSERT INTO type(type_name)
-      SELECT $1
-      WHERE NOT EXISTS (SELECT type_name FROM type WHERE type_name = $1);
-    `;
-    const typeInsertResult = await db.query(typeInsertQuery, [pokeType]);
-
-    const pokeHasTypeInsertQuery = `
-      INSERT INTO pokemon_has_type(id, type_name)
-      VALUES ($1, $2);
-    `;
-    const pokeHasTypeInsertResult = await db.query(pokeHasTypeInsertQuery, [
-      pokeId,
-      pokeType,
-    ]);
+    // removes whitespace, splits commas, inserts each one at a time into db
+    pokeType.replace(/\s/g, "").split(",").map(insertIntoTypes);
+    pokeType.replace(/\s/g, "").split(",").map(insertPokemonType);
 
     return res
       .status(201)

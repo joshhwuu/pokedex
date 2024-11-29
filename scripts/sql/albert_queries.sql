@@ -1,11 +1,21 @@
 -- 2.1.1 Implement INSERT on one relation
--- Inserts onto the pokemon table
-INSERT INTO pokemon(id, pokemon_name, category, catch_rate, region_name, evolution_item, from_id)
-VALUES (:pokeId, :pokeName, :pokeCategory, :pokeCatch, :pokeRegion, :pokeEvoItem, :pokeFromId);
+-- insert into pokemon table
+INSERT INTO pokemon(
+id, 
+pokemon_name, 
+category, 
+evolution_item,
+catch_rate, 
+region_name, 
+from_id
+) 
+VALUES (${pokeId}, ${pokeName}, ${pokeCategory}, ${pokeEvoItem}, ${pokeCatch}, ${pokeRegion}, ${pokeFromId})
 
+-- insert into the type if it's new
 INSERT INTO type(type_name)
-SELECT :pokeType
-WHERE NOT EXISTS(SELECT type_name FROM type WHERE type_name = :pokeType);
+VALUES(${pokeType}) 
+ON CONFLICT DO NOTHING;
+
 
 INSERT INTO pokemon_has_type (id, type_name)
 VALUES (:pokeID, :pokeType);
