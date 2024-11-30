@@ -252,6 +252,7 @@ export default function Home() {
         }
       );
 
+
       if (!response.ok) {
         if (response.status === 404) {
           throw new Error("Pokemon not found.");
@@ -262,8 +263,8 @@ export default function Home() {
 
       const data = await response.json();
       setPokemonList(data);
+      alert("Search complete");
     } catch (err) {
-      //console.error("Error fetching Pokemon:", error);
       alert(`Error: ${err.message}`);
     }
   };
