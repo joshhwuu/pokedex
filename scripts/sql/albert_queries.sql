@@ -26,6 +26,9 @@ UPDATE Pokemon
 SET pokemon_name = :pokeName, category = :pokeCategory, catch_rate = :pokeCatch, region_name = :pokeRegion, from_id = :pokeFromId;
 WHERE id = :pokeId;
 
+DELETE FROM pokemon_has_type 
+WHERE id = $1;
+
 -- 2.1.3 Implement DELETE on one relation
 -- Delete relations in the pokemon table
 DELETE from Pokemon

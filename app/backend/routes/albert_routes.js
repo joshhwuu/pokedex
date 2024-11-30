@@ -78,36 +78,75 @@ router.post("/pokemon", async (req, res) => {
 router.put("/pokemon", async (req, res) => {
   try {
     const {
+      pokeId,
       pokeName,
       pokeCategory,
       pokeCatch,
       pokeRegion,
       pokeFromId,
-      pokeId,
+      pokeEvoItem,
+      pokeType,
     } = req.body;
+
+    const pokeIdInt = parseInt(pokeId, 10);
+    const pokeCatchRateInt = parseInt(pokeCatch, 10);
+    const pokeFromIdInt = pokeFromId ? parseInt(pokeFromId, 10) : null;
+    const pokeEvoItemVal = pokeEvoItem === "" ? null : pokeEvoItem;
+
+    async function insertIntoTypes(type) {
+      const typeInsertQuery = `
+      INSERT INTO type(type_name)
+      VALUES($1) 
+      ON CONFLICT DO NOTHING;
+    `;
+      db.query(typeInsertQuery, [type]);
+    }
+
+    async function insertPokemonType(type) {
+      const pokeHasTypeInsertQuery = `
+      INSERT INTO pokemon_has_type(id, type_name)
+      VALUES ($1, $2)
+      ON CONFLICT DO NOTHING;
+    `;
+      await db.query(pokeHasTypeInsertQuery, [pokeId, type]);
+    }
+
     const query = `
       UPDATE pokemon
       SET
         pokemon_name = $1,
         category = $2,
-        catch_rate = $3,
-        region_name = $4,
-        from_id = $5
+        evolution_item = $3,
+        catch_rate = $4,
+        region_name = $5,
+        from_id = $6
       WHERE
-        id = $6;
+        id = $7;
       `;
     const result = await db.query(query, [
       pokeName,
       pokeCategory,
-      pokeCatch,
+      pokeEvoItemVal,
+      pokeCatchRateInt,
       pokeRegion,
-      pokeFromId,
-      pokeId,
+      pokeFromIdInt,
+      pokeIdInt,
     ]);
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Pokemon not found." });
     }
+
+    // removes type association with pokemon
+    const deleteTypeQuery = `
+    DELETE FROM pokemon_has_type 
+    WHERE id = $1;
+    `;
+    await db.query(deleteTypeQuery, [pokeIdInt]);
+
+    // removes whitespace, splits commas, inserts each one at a time into db
+    pokeType.replace(/\s/g, "").split(",").map(insertIntoTypes);
+    pokeType.replace(/\s/g, "").split(",").map(insertPokemonType);
 
     return res.status(200).json({ message: "Pokemon updated successfully." });
   } catch (err) {

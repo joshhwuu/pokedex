@@ -32,7 +32,9 @@ export default function Home() {
   const [updatePokeCategory, setUpdatePokeCategory] = useState("");
   const [updatePokeCatch, setUpdatePokeCatch] = useState("");
   const [updatePokeRegion, setUpdatePokeRegion] = useState("");
+  const [updatePokeEvoItem, setUpdatePokeEvoItem] = useState("");
   const [updatePokeFromId, setUpdatePokeFromId] = useState("");
+  const [updatePokeType, setUpdatePokeType] = useState("");
 
   const [deletePokeId, setDeletePokeId] = useState("");
 
@@ -121,31 +123,70 @@ export default function Home() {
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
     try {
+      const pokeInfo = JSON.stringify({
+        pokeId: updatePokeId,
+        pokeName: updatePokeName,
+        pokeCategory: updatePokeCategory,
+        pokeCatch: updatePokeCatch,
+        pokeRegion: updatePokeRegion,
+        pokeEvoItem: updatePokeEvoItem,
+        pokeFromId: updatePokeFromId,
+        pokeType: updatePokeType,
+      })
+
+      const pokeIdInt = parseInt(updatePokeId, 10);
+      const pokeCatchInt = parseInt(updatePokeCatch, 10);
+      const pokeFromIdInt = updatePokeFromId ? parseInt(updatePokeFromId, 10) : null;
+
+      // Validate types
+      if (isNaN(pokeIdInt) || isNaN(pokeCatchInt) || (pokeFromId && isNaN(pokeFromIdInt))) {
+        alert("Only valid numbers are allowed for ID, Catch Rate, and From ID.");
+        return;
+      }
+
+      if (!(typeof updatePokeName == "string")) {
+        alert("Pokemon name must be a string");
+        return;
+      }
+
+      if (
+      (!(typeof pokeCategory == "string") && pokeCategory != null) || 
+      (!(typeof pokeRegion == "string") && pokeRegion != null) || 
+      (!(typeof pokeEvoItem == "string") && pokeEvoItem != null) || 
+      (!(typeof pokeType  == "string") && pokeType != null)
+      ) {
+        alert("Only valid strings are allowed for Category, Region, Evolution Item, and Type.");
+        return;
+      }
+
       const response = await fetch("http://localhost:8008/albert/pokemon", {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": 'application/json',
         },
-        body: JSON.stringify({
-          pokeId: updatePokeId,
-          pokeName: updatePokeName,
-          pokeCategory: updatePokeCategory,
-          pokeCatch: updatePokeCatch,
-          pokeRegion: updatePokeRegion,
-          pokeFromId: updatePokeFromId,
-        }),
+        body: pokeInfo,
       });
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error("Pokemon not found.");
+          alert("Pokemon not found.");
+          return;
         } else {  
-          throw new Error("Failed to update Pokemon");
+          alert("Failed to update Pokemon");
+          return;
         }
       }
       alert("Pokemon updated successfully");
+      setUpdatePokeId("");
+      setUpdatePokeName("");
+      setUpdatePokeCategory("");
+      setUpdatePokeCatch("");
+      setUpdatePokeRegion("");
+      setUpdatePokeEvoItem("");
+      setUpdatePokeFromId("");
+      setUpdatePokeType("");
+
     } catch (err) {
-      //console.error("Error updating Pokemon:", err);
       alert(`Error: ${err.message}`);
     }
   };
@@ -243,7 +284,7 @@ export default function Home() {
           Search by Type
         </button>
       </div>
-
+f
       {/* Tab Content */}
       {activeTab === "reload" && (
         <div>
@@ -256,115 +297,114 @@ export default function Home() {
         </div>
       )}
 
-  {activeTab === "add" && (
-    <div>
-      <h2 className="text-xl font-semibold text-gray-700 mt-8">Add a Pokemon</h2>
-      <form onSubmit={handleAddPokemon} className="mt-4">
+      {activeTab === "add" && (
+        <div>
+          <h2 className="text-xl font-semibold text-gray-700 mt-2">Add a Pokemon</h2>
+          <form onSubmit={handleAddPokemon} className="mt-4">
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon ID</label>
-            <input
-              type="text"
-              value={pokeId}
-              placeholder="385"
-              onChange={(e) => setPokeId(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon Name</label>
-            <input
-              type="text"
-              value={pokeName}
-              placeholder="Jirachi"
-              onChange={(e) => setPokeName(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-              required
-            />
-          </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon ID</label>
+                <input
+                  type="text"
+                  value={pokeId}
+                  placeholder="385"
+                  onChange={(e) => setPokeId(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon Name</label>
+                <input
+                  type="text"
+                  value={pokeName}
+                  placeholder="Jirachi"
+                  onChange={(e) => setPokeName(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                  required
+                />
+              </div>
 
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon Category</label>
-            <input
-              type="text"
-              value={pokeCategory}
-              placeholder="Wish Pokemon"
-              onChange={(e) => setPokeCategory(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon Catch Rate</label>
-            <input
-              type="text"
-              value={pokeCatch}
-              placeholder="3"
-              onChange={(e) => setPokeCatch(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-              required
-            />
-          </div>
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon Category</label>
+                <input
+                  type="text"
+                  value={pokeCategory}
+                  placeholder="Wish Pokemon"
+                  onChange={(e) => setPokeCategory(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon Catch Rate</label>
+                <input
+                  type="text"
+                  value={pokeCatch}
+                  placeholder="3"
+                  onChange={(e) => setPokeCatch(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                  required
+                />
+              </div>
 
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon Region</label>
-            <input
-              type="text"
-              value={pokeRegion}
-              placeholder="Kanto"
-              onChange={(e) => setPokeRegion(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-              required
-            />
-          </div>
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon Evolution Item</label>
-            <input
-              type="text"
-              value={pokeEvoItem}
-              onChange={(e) => setPokeEvoItem(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-            />
-          </div>
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon Region</label>
+                <input
+                  type="text"
+                  value={pokeRegion}
+                  placeholder="Kanto"
+                  onChange={(e) => setPokeRegion(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon Evolution Item</label>
+                <input
+                  type="text"
+                  value={pokeEvoItem}
+                  onChange={(e) => setPokeEvoItem(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                />
+              </div>
 
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon From ID</label>
-            <input
-              type="text"
-              value={pokeFromId}
-              onChange={(e) => setPokeFromId(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm text-gray-600 font-semibold">Pokemon Type</label>
-            <input
-              type="text"
-              value={pokeType}
-              placeholder="Steel, Psychic"
-              onChange={(e) => setPokeType(e.target.value)}
-              className="border px-3 py-2 text-blue-700 mt-1 w-full"
-            />
-          </div>
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon From ID</label>
+                <input
+                  type="text"
+                  value={pokeFromId}
+                  onChange={(e) => setPokeFromId(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                />
+              </div>
+              <div>
+                <label className="block text-sm text-gray-600 font-semibold">Pokemon Type</label>
+                <input
+                  type="text"
+                  value={pokeType}
+                  placeholder="Steel, Psychic"
+                  onChange={(e) => setPokeType(e.target.value)}
+                  className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                />
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              Add Pokemon
+            </button>
+          </form>
         </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-        >
-          Add Pokemon
-        </button>
-      </form>
-    </div>
-  )}
-
+      )}
 
       {activeTab === "update" && (
         <div>
-          <h2 className="text-xl font-semibold text-gray-700 mt-8">Update Pokemon</h2>
+          <h2 className="text-xl font-semibold text-gray-700 mt-2">Update Pokemon Based on ID</h2>
           <form onSubmit={handleUpdateSubmit} className="mt-4">
             <div>
               <label className="block text-sm text-gray-600 font-semibold">Pokemon ID</label>
@@ -412,11 +452,29 @@ export default function Home() {
               />
             </div>
             <div>
+              <label className="block text-sm text-gray-600 font-semibold">Pokemon Evolution Item</label>
+              <input
+                type="text"
+                value={updatePokeEvoItem}
+                onChange={(e) => setUpdatePokeEvoItem(e.target.value)}
+                className="border px-3 py-2 text-blue-700 mt-1 w-full"
+              />
+            </div>
+            <div>
               <label className="block text-sm text-gray-600 font-semibold">Pokemon From ID</label>
               <input
                 type="text"
                 value={updatePokeFromId}
                 onChange={(e) => setUpdatePokeFromId(e.target.value)}
+                className="border px-3 py-2 text-blue-700 mt-1 w-full"
+              />
+            </div>
+            <div>
+              <label className="block text-sm text-gray-600 font-semibold">Pokemon Type</label>
+              <input
+                type="text"
+                value={updatePokeType}
+                onChange={(e) => setUpdatePokeType(e.target.value)}
                 className="border px-3 py-2 text-blue-700 mt-1 w-full"
               />
             </div>
@@ -432,7 +490,7 @@ export default function Home() {
 
       {activeTab === "delete" && (
         <div>
-          <h2 className="text-xl font-semibold text-gray-700 mt-8">Delete Pokemon</h2>
+          <h2 className="text-xl font-semibold text-gray-700 mt-2">Delete Pokemon</h2>
           <form onSubmit={handleDeleteSubmit} className="mt-4">
             <div>
               <label className="block text-sm text-gray-600 font-semibold">Pokemon ID</label>
@@ -456,7 +514,7 @@ export default function Home() {
 
       {activeTab === "fetch" && (
         <div>
-          <h2 className="text-xl font-semibold text-gray-700 mt-8">Pokemon Lookup</h2>
+          <h2 className="text-xl font-semibold text-gray-700 mt-2">Pokemon Lookup</h2>
           <form onSubmit={handleGetSubmit} className="mt-4">
             <div>
               <label className="block text-sm text-gray-600 font-semibold">Pokemon Type 1</label>
