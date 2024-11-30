@@ -99,8 +99,10 @@ export default function Home() {
             alert("Pokemon with ID already exists.");
           } else if (text.includes("pokemon_pokemon_name_key")) {
             alert("Pokemon with name already exists.");
+          } else if (text.includes("fk_from_id")) {
+            alert("Pokemon ID must exist in the database.");
           } else{
-            alert(text);
+            alert("Failed to add Pokemon to database");
           }
          })
       }
@@ -171,11 +173,20 @@ export default function Home() {
         if (response.status === 404) {
           alert("Pokemon not found.");
           return;
-        } else {  
-          alert("Failed to update Pokemon");
-          return;
+        } else {
+          response.text().then(text => { 
+            if (text.includes("pokemon_pkey")) {
+              alert("Pokemon with ID already exists.");
+            } else if (text.includes("pokemon_pokemon_name_key")) {
+              alert("Pokemon with name already exists.");
+            } else if (text.includes("fk_from_id")) {
+              alert("Pokemon ID must exist in the database.");
+            } else{
+              alert("Failed to update Pokemon");}
+            })
+            return;
+          }
         }
-      }
       alert("Pokemon updated successfully");
       setUpdatePokeId("");
       setUpdatePokeName("");
@@ -194,19 +205,26 @@ export default function Home() {
   const handleDeleteSubmit = async (event) => {
     event.preventDefault();
     try {
+      if (isNaN(parseInt(deletePokeId))) {
+        alert("Must input number");
+        return;
+      }
+
       const response = await fetch("http://localhost:8008/albert/pokemon", {
         method: "DELETE",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": 'application/json',
         },
         body: JSON.stringify({ pokeId: parseInt(deletePokeId) }),
       });
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error("Pokemon not found.");
+          alert("Pokemon not found.");
+          return;
         } else {
-        throw new Error("Failed to delete Pokemon");
+        alert("Failed to delete Pokemon");
+        return;
         }
       }
 
@@ -413,6 +431,7 @@ f
                 value={updatePokeId}
                 onChange={(e) => setUpdatePokeId(e.target.value)}
                 className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                required
               />
             </div>
             <div>
@@ -422,6 +441,7 @@ f
                 value={updatePokeName}
                 onChange={(e) => setUpdatePokeName(e.target.value)}
                 className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                required
               />
             </div>
             <div>
