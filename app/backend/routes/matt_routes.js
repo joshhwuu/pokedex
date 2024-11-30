@@ -37,7 +37,7 @@ router.get("/best-or-worst-avg-moves-by-type", async (req, res) => {
     const extreme = req.query.extreme;
     const ord = extreme === "MAX" ? "DESC" : "ASC";
     const query = `
-    SELECT type, power
+    SELECT type, MAX(power)
     FROM (
         SELECT MT.type_name AS type, AVG(m.power) AS power
         FROM Move M INNER JOIN move_has_type MT
