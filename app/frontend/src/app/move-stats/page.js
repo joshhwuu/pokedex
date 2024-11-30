@@ -32,7 +32,7 @@ export default function MoveStats() {
       <h1 className="text-2xl font-bold text-gray-700">Move Stats</h1>
       <hr className="my-4 border-gray-300"></hr>
       <p className="text-gray-700 w-1/2 pb-4">
-      See aggregated stats about Pokemon moves based on type.
+        See aggregated stats about Pokemon moves based on type.
       </p>
 
       <form onSubmit={handleSubmit} className="mb-4">

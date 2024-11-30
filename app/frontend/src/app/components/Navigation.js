@@ -33,17 +33,18 @@ export default function Nav() {
       >
         All Pokemon
       </Link>
-      <Link
-        href="/min-max-avg-moves"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Min and Max Average Move Power
-      </Link>
+
       <Link
         href="/pokemon-in-region"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
       >
-        Number of Pokemon in Each Region
+        Pokemon Per Region
+      </Link>
+      <Link
+        href="/min-max-avg-moves"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Average Move Power
       </Link>
     </nav>
   );

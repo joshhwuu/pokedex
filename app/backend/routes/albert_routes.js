@@ -17,86 +17,136 @@ router.post("/pokemon", async (req, res) => {
       pokeType,
     } = req.body;
 
+    const pokeIdInt = parseInt(pokeId, 10);
+    const pokeCatchRateInt = parseInt(pokeCatch, 10);
+    const pokeFromIdInt = pokeFromId ? parseInt(pokeFromId, 10) : null;
+    const pokeEvoItemVal = pokeEvoItem === "" ? null : pokeEvoItem;
+
+    async function insertIntoTypes(type) {
+      const typeInsertQuery = `
+      INSERT INTO type(type_name)
+      VALUES($1) 
+      ON CONFLICT DO NOTHING;
+    `;
+      db.query(typeInsertQuery, [type]);
+    }
+
+    async function insertPokemonType(type) {
+      const pokeHasTypeInsertQuery = `
+      INSERT INTO pokemon_has_type(id, type_name)
+      VALUES ($1, $2)
+      ON CONFLICT DO NOTHING;
+    `;
+      await db.query(pokeHasTypeInsertQuery, [pokeId, type]);
+    }
+
     const pokeInsertQuery = `
       INSERT INTO pokemon(
         id, 
         pokemon_name, 
         category, 
+        evolution_item,
         catch_rate, 
         region_name, 
-        evolution_item, 
         from_id
       ) 
       VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
-    const pokeInsertResult = await db.query(pokeInsertQuery, [
-      pokeId,
+    await db.query(pokeInsertQuery, [
+      pokeIdInt,
       pokeName,
       pokeCategory,
-      pokeCatch,
+      pokeEvoItemVal,
+      pokeCatchRateInt,
       pokeRegion,
-      pokeEvoItem,
-      pokeFromId,
+      pokeFromIdInt,
     ]);
 
-    const typeInsertQuery = `
-      INSERT INTO type(type_name)
-      SELECT $1
-      WHERE NOT EXISTS (SELECT type_name FROM type WHERE type_name = $1);
-    `;
-    const typeInsertResult = await db.query(typeInsertQuery, [pokeType]);
-
-    const pokeHasTypeInsertQuery = `
-      INSERT INTO pokemon_has_type(id, type_name)
-      VALUES ($1, $2);
-    `;
-    const pokeHasTypeInsertResult = await db.query(pokeHasTypeInsertQuery, [
-      pokeId,
-      pokeType,
-    ]);
+    // removes whitespace, splits commas, inserts each one at a time into db
+    pokeType.replace(/\s/g, "").split(",").map(insertIntoTypes);
+    pokeType.replace(/\s/g, "").split(",").map(insertPokemonType);
 
     return res
       .status(201)
       .json({ message: "Pokemon and type successfully inserted." });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error adding new pokemon");
+    res.status(500).send(err.message);
   }
 });
 
 router.put("/pokemon", async (req, res) => {
   try {
     const {
+      pokeId,
       pokeName,
       pokeCategory,
       pokeCatch,
       pokeRegion,
       pokeFromId,
-      pokeId,
+      pokeEvoItem,
+      pokeType,
     } = req.body;
+
+    const pokeIdInt = parseInt(pokeId, 10);
+    const pokeCatchRateInt = parseInt(pokeCatch, 10);
+    const pokeFromIdInt = pokeFromId ? parseInt(pokeFromId, 10) : null;
+    const pokeEvoItemVal = pokeEvoItem === "" ? null : pokeEvoItem;
+
+    async function insertIntoTypes(type) {
+      const typeInsertQuery = `
+      INSERT INTO type(type_name)
+      VALUES($1) 
+      ON CONFLICT DO NOTHING;
+    `;
+      db.query(typeInsertQuery, [type]);
+    }
+
+    async function insertPokemonType(type) {
+      const pokeHasTypeInsertQuery = `
+      INSERT INTO pokemon_has_type(id, type_name)
+      VALUES ($1, $2)
+      ON CONFLICT DO NOTHING;
+    `;
+      await db.query(pokeHasTypeInsertQuery, [pokeId, type]);
+    }
+
     const query = `
       UPDATE pokemon
       SET
         pokemon_name = $1,
         category = $2,
-        catch_rate = $3,
-        region_name = $4,
-        from_id = $5
+        evolution_item = $3,
+        catch_rate = $4,
+        region_name = $5,
+        from_id = $6
       WHERE
-        id = $6;
+        id = $7;
       `;
     const result = await db.query(query, [
       pokeName,
       pokeCategory,
-      pokeCatch,
+      pokeEvoItemVal,
+      pokeCatchRateInt,
       pokeRegion,
-      pokeFromId,
-      pokeId,
+      pokeFromIdInt,
+      pokeIdInt,
     ]);
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Pokemon not found." });
     }
+
+    // removes type association with pokemon
+    const deleteTypeQuery = `
+    DELETE FROM pokemon_has_type 
+    WHERE id = $1;
+    `;
+    await db.query(deleteTypeQuery, [pokeIdInt]);
+
+    // removes whitespace, splits commas, inserts each one at a time into db
+    pokeType.replace(/\s/g, "").split(",").map(insertIntoTypes);
+    pokeType.replace(/\s/g, "").split(",").map(insertPokemonType);
 
     return res.status(200).json({ message: "Pokemon updated successfully." });
   } catch (err) {
@@ -110,32 +160,46 @@ router.delete("/pokemon", async (req, res) => {
     const { pokeId } = req.body;
     const query = `
     DELETE from pokemon
-    WHERE id = $1;
+    WHERE id = $1 RETURNING pokemon_name;
     `;
 
-    const result = await db.query(query, pokeId);
+    const result = await db.query(query, [pokeId]);
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Pokemon not found." });
     }
-
-    return res.status(200).json({ message: "Pokemon deleted successfully." });
+    return res.status(200).json({ message: result.rows[0].pokemon_name });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error deleting Pokemon");
+    res.status(500).send(err.message);
   }
 });
 
 router.get("/pokemon", async (req, res) => {
   try {
-    const { pokeType, pokeType2 } = req.params;
-    const query = `
-    SELECT distinct id
-    FROM pokemon
-    WHERE type_name IN ($1, $2);
+    const { pokeType, pokeType2 } = req.query;
+
+    const query =
+      pokeType2 == ""
+        ? `
+    SELECT distinct pokemon.pokemon_name
+    FROM pokemon, pokemon_has_type
+    WHERE pokemon.id=pokemon_has_type.id AND type_name IN ($1);
+    `
+        : `
+    SELECT distinct pokemon.pokemon_name
+    FROM pokemon, pokemon_has_type
+    WHERE pokemon.id=pokemon_has_type.id AND type_name IN ($1, $2);
     `;
 
-    const result = await db.query(query, [pokeType, pokeType2]);
+    const result =
+      pokeType2 == ""
+        ? await db.query(query, [pokeType.trim()])
+        : await db.query(query, [pokeType.trim(), pokeType2.trim()]);
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ message: "Pokemon not found." });
+    }
 
     return res.json(result.rows);
   } catch (err) {
