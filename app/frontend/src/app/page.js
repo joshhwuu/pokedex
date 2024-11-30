@@ -240,6 +240,11 @@ export default function Home() {
   const handleGetSubmit = async (event) => {
     event.preventDefault();
     try {
+      if (!(typeof pokeType1 == "string") || !(typeof pokeType2 == "string")) {
+        alert("Only letters are allowed as types.");
+        return;
+      }
+
       const response = await fetch(
         `http://localhost:8008/albert/pokemon?pokeType=${pokeType1}&pokeType2=${pokeType2}`,
         {
@@ -257,7 +262,7 @@ export default function Home() {
 
       const data = await response.json();
       setPokemonList(data);
-    } catch (error) {
+    } catch (err) {
       //console.error("Error fetching Pokemon:", error);
       alert(`Error: ${err.message}`);
     }
@@ -324,7 +329,7 @@ f
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-gray-600 font-semibold">Pokemon ID</label>
+                <label className="block text-sm text-gray-600 font-semibold">*Pokemon ID</label>
                 <input
                   type="text"
                   value={pokeId}
@@ -335,7 +340,7 @@ f
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-600 font-semibold">Pokemon Name</label>
+                <label className="block text-sm text-gray-600 font-semibold">*Pokemon Name</label>
                 <input
                   type="text"
                   value={pokeName}
@@ -347,7 +352,7 @@ f
               </div>
 
               <div>
-                <label className="block text-sm text-gray-600 font-semibold">Pokemon Category</label>
+                <label className="block text-sm text-gray-600 font-semibold">*Pokemon Category</label>
                 <input
                   type="text"
                   value={pokeCategory}
@@ -358,7 +363,7 @@ f
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-600 font-semibold">Pokemon Catch Rate</label>
+                <label className="block text-sm text-gray-600 font-semibold">*Pokemon Catch Rate</label>
                 <input
                   type="text"
                   value={pokeCatch}
@@ -370,7 +375,7 @@ f
               </div>
 
               <div>
-                <label className="block text-sm text-gray-600 font-semibold">Pokemon Region</label>
+                <label className="block text-sm text-gray-600 font-semibold">*Pokemon Region</label>
                 <input
                   type="text"
                   value={pokeRegion}
@@ -427,7 +432,7 @@ f
           <h2 className="text-xl font-semibold text-gray-700 mt-2">Update Pokemon Based on ID</h2>
           <form onSubmit={handleUpdateSubmit} className="mt-4">
             <div>
-              <label className="block text-sm text-gray-600 font-semibold">Pokemon ID</label>
+              <label className="block text-sm text-gray-600 font-semibold">*Pokemon ID</label>
               <input
                 type="text"
                 value={updatePokeId}
@@ -437,7 +442,7 @@ f
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-600 font-semibold">Pokemon Name</label>
+              <label className="block text-sm text-gray-600 font-semibold">*Pokemon Name</label>
               <input
                 type="text"
                 value={updatePokeName}
@@ -447,30 +452,33 @@ f
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-600 font-semibold">Pokemon Category</label>
+              <label className="block text-sm text-gray-600 font-semibold">*Pokemon Category</label>
               <input
                 type="text"
                 value={updatePokeCategory}
                 onChange={(e) => setUpdatePokeCategory(e.target.value)}
                 className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                required
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-600 font-semibold">Pokemon Catch Rate</label>
+              <label className="block text-sm text-gray-600 font-semibold">*Pokemon Catch Rate</label>
               <input
                 type="text"
                 value={updatePokeCatch}
                 onChange={(e) => setUpdatePokeCatch(e.target.value)}
                 className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                required
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-600 font-semibold">Pokemon Region</label>
+              <label className="block text-sm text-gray-600 font-semibold">*Pokemon Region</label>
               <input
                 type="text"
                 value={updatePokeRegion}
                 onChange={(e) => setUpdatePokeRegion(e.target.value)}
                 className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                required
               />
             </div>
             <div>
@@ -515,7 +523,7 @@ f
           <h2 className="text-xl font-semibold text-gray-700 mt-2">Delete Pokemon</h2>
           <form onSubmit={handleDeleteSubmit} className="mt-4">
             <div>
-              <label className="block text-sm text-gray-600 font-semibold">Pokemon ID</label>
+              <label className="block text-sm text-gray-600 font-semibold">*Pokemon ID</label>
               <input
                 type="text"
                 value={deletePokeId}
@@ -539,12 +547,13 @@ f
           <h2 className="text-xl font-semibold text-gray-700 mt-2">Pokemon Lookup</h2>
           <form onSubmit={handleGetSubmit} className="mt-4">
             <div>
-              <label className="block text-sm text-gray-600 font-semibold">Pokemon Type 1</label>
+              <label className="block text-sm text-gray-600 font-semibold">*Pokemon Type 1</label>
               <input
                 type="text"
                 value={pokeType1}
                 onChange={(e) => setPokeType1(e.target.value)}
                 className="border px-3 py-2 text-blue-700 mt-1 w-full"
+                required
               />
             </div>
             <div>
@@ -568,8 +577,8 @@ f
             <div className="mt-4">
               <h3 className="font-semibold">Fetched Pokemon:</h3>
               <ul>
-                {pokemonList.map((pokemon) => (
-                  <li key={pokemon.pokeId} className="text-gray-700">
+                {pokemonList.map((pokemon, i) => (
+                  <li key={i} className="text-gray-700">
                     {pokemon.pokeName} (Name: {pokemon.pokemon_name})
                   </li>
                 ))}

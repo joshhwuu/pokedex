@@ -178,13 +178,24 @@ router.delete("/pokemon", async (req, res) => {
 router.get("/pokemon", async (req, res) => {
   try {
     const { pokeType, pokeType2 } = req.query;
-    const query = `
+
+    const query =
+      pokeType2 == ""
+        ? `
+    SELECT distinct pokemon.pokemon_name
+    FROM pokemon, pokemon_has_type
+    WHERE pokemon.id=pokemon_has_type.id AND type_name IN ($1);
+    `
+        : `
     SELECT distinct pokemon.pokemon_name
     FROM pokemon, pokemon_has_type
     WHERE pokemon.id=pokemon_has_type.id AND type_name IN ($1, $2);
     `;
 
-    const result = await db.query(query, [pokeType, pokeType2]);
+    const result =
+      pokeType2 == ""
+        ? await db.query(query, [pokeType.trim()])
+        : await db.query(query, [pokeType.trim(), pokeType2.trim()]);
 
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Pokemon not found." });
