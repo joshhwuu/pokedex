@@ -160,7 +160,7 @@ router.delete("/pokemon", async (req, res) => {
     const { pokeId } = req.body;
     const query = `
     DELETE from pokemon
-    WHERE id = $1;
+    WHERE id = $1 RETURNING pokemon_name;
     `;
 
     const result = await db.query(query, [pokeId]);
@@ -168,11 +168,10 @@ router.delete("/pokemon", async (req, res) => {
     if (result.rowCount === 0) {
       return res.status(404).json({ message: "Pokemon not found." });
     }
-
-    return res.status(200).json({ message: "Pokemon deleted successfully." });
+    return res.status(200).json({ message: result.rows[0].pokemon_name });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Error deleting Pokemon");
+    res.status(500).send(err.message);
   }
 });
 

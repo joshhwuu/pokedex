@@ -227,8 +227,10 @@ export default function Home() {
         return;
         }
       }
+      response.text().then(text => { 
+        alert(`${JSON.parse(text).message} was deleted successfully!`)
+      })
 
-      alert("Pokemon deleted successfully");
     } catch (err) {
       //console.error("Error deleting Pokemon:", err);
       alert(`Error: ${err.message}`);
