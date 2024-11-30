@@ -100,7 +100,7 @@ export default function Home() {
           } else if (text.includes("pokemon_pokemon_name_key")) {
             alert("Pokemon with name already exists.");
           } else if (text.includes("fk_from_id")) {
-            alert("Pokemon ID must exist in the database.");
+            alert("Pokemon From ID must belong to pokemon that exists in the database.");
           } else{
             alert("Failed to add Pokemon to database");
           }
@@ -180,9 +180,9 @@ export default function Home() {
             } else if (text.includes("pokemon_pokemon_name_key")) {
               alert("Pokemon with name already exists.");
             } else if (text.includes("fk_from_id")) {
-              alert("Pokemon ID must exist in the database.");
+              alert("Pokemon From ID must belong to pokemon that exists in the database.");
             } else{
-              alert("Failed to update Pokemon");}
+              alert("Failed to update Pokemon.");}
             })
             return;
           }
