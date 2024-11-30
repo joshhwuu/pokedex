@@ -433,7 +433,72 @@ INSERT INTO pokemon (id, pokemon_name, category, evolution_item, catch_rate, reg
 (121, 'Starmie', 'Mysterious', NULL, 60, 'Kanto', 120),
 (95, 'Onix', 'Rock Snake', NULL, 45, 'Kanto', NULL),
 (109, 'Koffing', 'Poison Gas', NULL, 190, 'Kanto', NULL),
-(110, 'Weezing', 'Poison Gas', NULL, 60, 'Kanto', 109);
+(110, 'Weezing', 'Poison Gas', NULL, 60, 'Kanto', 109)
+(152, 'Chikorita', 'Leaf', NULL, 45, 'Johto', NULL),
+(153, 'Bayleef', 'Herb', NULL, 45, 'Johto', 152),
+(154, 'Meganium', 'Herb', NULL, 45, 'Johto', 153),
+(155, 'Cyndaquil', 'Fire Mouse', NULL, 45, 'Johto', NULL),
+(156, 'Quilava', 'Fire', NULL, 45, 'Johto', 155),
+(157, 'Typhlosion', 'Volcano', NULL, 45, 'Johto', 156),
+(158, 'Totodile', 'Big Jaw', NULL, 45, 'Johto', NULL),
+(159, 'Croconaw', 'Big Jaw', NULL, 45, 'Johto', 158),
+(160, 'Feraligatr', 'Big Jaw', NULL, 45, 'Johto', 159),
+(161, 'Sentret', 'Scout', NULL, 255, 'Johto', NULL),
+(162, 'Furret', 'Long Body', NULL, 127, 'Johto', 161),
+(163, 'Hoothoot', 'Owl', NULL, 255, 'Johto', NULL),
+(164, 'Noctowl', 'Owl', NULL, 90, 'Johto', 163),
+(165, 'Ledyba', 'Five Star', NULL, 255, 'Johto', NULL),
+(166, 'Ledian', 'Five Star', NULL, 90, 'Johto', 165),
+(167, 'Spinarak', 'String Spit', NULL, 255, 'Johto', NULL),
+(168, 'Ariados', 'String Spit', NULL, 90, 'Johto', 167)
+(252, 'Treecko', 'Wood Gecko', NULL, 45, 'Hoenn', NULL),
+(253, 'Grovyle', 'Wood Gecko', NULL, 45, 'Hoenn', 252),
+(254, 'Sceptile', 'Forest', NULL, 45, 'Hoenn', 253),
+(255, 'Torchic', 'Chick', NULL, 45, 'Hoenn', NULL),
+(256, 'Combusken', 'Blaze', NULL, 45, 'Hoenn', 255),
+(257, 'Blaziken', 'Blaze', NULL, 45, 'Hoenn', 256),
+(258, 'Mudkip', 'Mud Fish', NULL, 45, 'Hoenn', NULL),
+(259, 'Marshtomp', 'Mud Fish', NULL, 45, 'Hoenn', 258),
+(260, 'Swampert', 'Mud Fish', NULL, 45, 'Hoenn', 259),
+(261, 'Zigzagoon', 'Tiny Raccoon', NULL, 255, 'Hoenn', NULL),
+(262, 'Linoone', 'Raccoon', NULL, 90, 'Hoenn', 261),
+(263, 'Wurmple', 'Worm', NULL, 255, 'Hoenn', NULL),
+(264, 'Silcoon', 'Cocoon', NULL, 120, 'Hoenn', 263),
+(265, 'Beautifly', 'Butterfly', NULL, 45, 'Hoenn', 264),
+(266, 'Cascoon', 'Cocoon', NULL, 120, 'Hoenn', 263),
+(267, 'Dustox', 'Poison Moth', NULL, 45, 'Hoenn', 266)
+(387, 'Turtwig', 'Tiny Leaf', NULL, 45, 'Sinnoh', NULL),
+(388, 'Grotle', 'Forest', NULL, 45, 'Sinnoh', 387),
+(389, 'Torterra', 'Continent', NULL, 45, 'Sinnoh', 388),
+(390, 'Chimchar', 'Chimp', NULL, 45, 'Sinnoh', NULL),
+(391, 'Monferno', 'Flame', NULL, 45, 'Sinnoh', 390),
+(392, 'Infernape', 'Flame', NULL, 45, 'Sinnoh', 391),
+(393, 'Piplup', 'Penguin', NULL, 45, 'Sinnoh', NULL),
+(394, 'Prinplup', 'Penguin', NULL, 45, 'Sinnoh', 393),
+(395, 'Empoleon', 'Penguin', NULL, 45, 'Sinnoh', 394),
+(398, 'Starly', 'Starling', NULL, 255, 'Sinnoh', NULL),
+(399, 'Staravia', 'Starling', NULL, 120, 'Sinnoh', 398),
+(400, 'Staraptor', 'Starling', NULL, 45, 'Sinnoh', 399),
+(406, 'Budew', 'Flower', NULL, 255, 'Sinnoh', NULL),
+(407, 'Roselia', 'Flower', NULL, 120, 'Sinnoh', 406),
+(408, 'Roserade', 'Bouquet', NULL, 45, 'Sinnoh', 407)
+(495, 'Snivy', 'Grass Snake', NULL, 45, 'Unova', NULL),
+(496, 'Servine', 'Serpentine', NULL, 45, 'Unova', 495),
+(497, 'Serperior', 'Regal Snake', NULL, 45, 'Unova', 496),
+(498, 'Tepig', 'Fire Pig', NULL, 45, 'Unova', NULL),
+(499, 'Pignite', 'Fire Pig', NULL, 45, 'Unova', 498),
+(500, 'Emboar', 'Fire Pig', NULL, 45, 'Unova', 499),
+(501, 'Oshawott', 'Sea Otter', NULL, 45, 'Unova', NULL),
+(502, 'Dewott', 'Discipline', NULL, 45, 'Unova', 501),
+(503, 'Samurott', 'Formidable', NULL, 45, 'Unova', 502),
+(510, 'Lillipup', 'Dog', NULL, 255, 'Unova', NULL),
+(511, 'Herdier', 'Dog', NULL, 120, 'Unova', 510),
+(512, 'Stoutland', 'Big-Hearted', NULL, 45, 'Unova', 511),
+(521, 'Blitzle', 'Thunder', NULL, 255, 'Unova', NULL),
+(522, 'Zebstrika', 'Thunder', NULL, 90, 'Unova', 521),
+(523, 'Roggenrola', 'Rock', NULL, 255, 'Unova', NULL),
+(524, 'Boldore', 'Ore', NULL, 120, 'Unova', 523),
+(525, 'Gigalith', 'Mineral', NULL, 45, 'Unova', 524);
 
 -- Insert example data into pokemon_roster table
 -- James
@@ -464,6 +529,32 @@ INSERT INTO pokemon_roster (name, id) VALUES
 ('Ash', 7),  -- Squirtle
 ('Ash', 25), -- Pikachu
 ('Ash', 121); -- Starmie
+
+-- Professor Oak
+INSERT INTO pokemon_roster (name, id) VALUES 
+('Oak', 25),    -- Pikachu
+('Oak', 1),     -- Bulbasaur
+('Oak', 4),     -- Charmander
+('Oak', 7),     -- Squirtle
+('Oak', 151);   -- Mew
+
+-- May 
+INSERT INTO pokemon_roster (name, id) VALUES 
+('May', 252),   -- Treecko
+('May', 255),   -- Torchic
+('May', 258),   -- Mudkip
+('May', 319),   -- Sharpedo
+('May', 328),   -- Trapinch
+('May', 334);   -- Altaria
+
+-- Brendan
+INSERT INTO pokemon_roster (name, id) VALUES 
+('Brendan', 252),   -- Treecko
+('Brendan', 255),   -- Torchic
+('Brendan', 258),   -- Mudkip
+('Brendan', 295),   -- Roselia
+('Brendan', 319),   -- Sharpedo
+('Brendan', 334);   -- Altaria
 
 -- Insert example data into pokemon_has_type table
 INSERT INTO pokemon_has_type (id, type_name) VALUES
@@ -516,7 +607,72 @@ INSERT INTO pokemon_has_type (id, type_name) VALUES
 (47, 'Bug'), (47, 'Grass'),
 (48, 'Bug'), (48, 'Poison'),
 (49, 'Bug'), (49, 'Poison'),
-(50, 'Ground');
+(50, 'Ground'),
+(152, 'Grass'),
+(153, 'Grass'),
+(154, 'Grass'),
+(155, 'Fire'),
+(156, 'Fire'),
+(157, 'Fire'),
+(158, 'Water'),
+(159, 'Water'),
+(160, 'Water'),
+(161, 'Normal'),
+(162, 'Normal'),
+(163, 'Normal'),
+(164, 'Normal'),
+(165, 'Bug'),
+(166, 'Bug'),
+(167, 'Bug'),
+(168, 'Bug'),
+(252, 'Grass'),
+(253, 'Grass'),
+(254, 'Grass'),
+(255, 'Fire'),
+(256, 'Fire'),
+(257, 'Fire'),
+(258, 'Water'),
+(259, 'Water'),
+(260, 'Water'),
+(261, 'Normal'),
+(262, 'Normal'),
+(263, 'Bug'),
+(264, 'Bug'),
+(265, 'Bug'),
+(266, 'Bug'),
+(267, 'Bug'),
+(387, 'Grass'),
+(388, 'Grass'),
+(389, 'Grass'),
+(390, 'Fire'),
+(391, 'Fire'),
+(392, 'Fire'),
+(393, 'Water'),
+(394, 'Water'),
+(395, 'Water'),
+(398, 'Normal'), (398, 'Flying'),
+(399, 'Normal'), (399, 'Flying'),
+(400, 'Normal'), (400, 'Flying'),
+(406, 'Grass'), (406, 'Poison'),
+(407, 'Grass'), (407, 'Poison'),
+(408, 'Grass'), (408, 'Poison'),
+(495, 'Grass'),
+(496, 'Grass'),
+(497, 'Grass'),
+(498, 'Fire'),
+(499, 'Fire'),
+(500, 'Fire'),
+(501, 'Water'),
+(502, 'Water'),
+(503, 'Water'),
+(510, 'Normal'),
+(511, 'Normal'),
+(512, 'Normal'),
+(521, 'Electric'),
+(522, 'Electric'),
+(523, 'Rock'),
+(524, 'Rock'),
+(525, 'Rock');
 
 INSERT INTO move (move_name, power, pp, physical_contact, category, accuracy) VALUES 
 ('Tackle', 40, 35, TRUE, 'Physical', 100),
